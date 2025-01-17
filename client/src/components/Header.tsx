@@ -7,15 +7,17 @@ const Header = () => {
     <>
       <header>
         <nav>
-          <li>
-            <img src={excel} />
-          </li>
-          <li>
-            <img src={plus} />
-          </li>
-          <li>
-            <img src={trash} />
-          </li>
+          <ul>
+            <li className="navLink">
+              <img src={excel} width={64} height={64} alt="nav icons" />
+            </li>
+            <li className="navLink">
+              <img src={plus} width={64} height={64} alt="nav icons" />
+            </li>
+            <li className="navLink">
+              <img src={trash} width={64} height={64} alt="nav icons" />
+            </li>
+          </ul>
         </nav>
       </header>
     </>

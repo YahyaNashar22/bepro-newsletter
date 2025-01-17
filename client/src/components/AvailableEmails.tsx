@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import TrashCan from "./TrashCan";
 
 interface email {
   email: string;
@@ -27,18 +28,27 @@ const AvailableEmails = () => {
   }, [backendURL]);
 
   return (
-    <div>
-      <h1>AvailableEmails:</h1>
-      {loading ? (
-        <p>loading</p>
-      ) : emails.length > 0 ? (
-        emails.map((email) => {
-          return <div key={email._id}>{email.email}</div>;
-        })
-      ) : (
-        <p>no emails</p>
-      )}
-    </div>
+    <main>
+      <h1 className="title">AvailableEmails</h1>
+      <ul className="emails-container">
+        {loading ? (
+          <li className="loader">Getting your emails...</li>
+        ) : emails.length > 0 ? (
+          emails.map((email) => {
+            return (
+              <li className="email" key={email._id}>
+                {email.email}{" "}
+                <span>
+                  <TrashCan email={email.email} />
+                </span>
+              </li>
+            );
+          })
+        ) : (
+          <p className="no-emails-text">You don't have any emails!</p>
+        )}
+      </ul>
+    </main>
   );
 };
 
