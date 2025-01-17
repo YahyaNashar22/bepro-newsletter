@@ -6,14 +6,20 @@ function FileUpload() {
 
   const [file, setFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const selectedFile = e.target.files[0];
+
+      setError(null); // Reset error on new file selection
+      setSuccess(null); // Reset success message
+
       const validTypes = [
         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         "application/vnd.ms-excel",
       ];
+
       if (validTypes.includes(selectedFile.type)) {
         setFile(selectedFile);
         setError(null);
@@ -34,14 +40,27 @@ function FileUpload() {
     formData.append("file", file);
 
     try {
-      const response = await axios.post(`${backendURL}/upload`, formData, {
+      await axios.post(`${backendURL}/upload`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
+      setSuccess("File uploaded successfully!");
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      if (error.response) {
+        // Check for specific error message
+        setError(
+          error.response.data.message ||
+            "An error occurred during the file upload."
+        );
+      } else {
+        setError("An unexpected error occurred.");
+      }
     }
   };
 
@@ -50,6 +69,7 @@ function FileUpload() {
       <input type="file" onChange={handleFileChange} />
       <button type="submit">Upload</button>
       {error && <p style={{ color: "red" }}>{error}</p>}
+      {success && <p style={{ color: "green" }}>{success}</p>}
     </form>
   );
 }

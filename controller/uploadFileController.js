@@ -12,7 +12,7 @@ export const uploadFile = async (req, res) => {
         const emailColumn = Object.keys(data[0]).find(key => key.toLowerCase().includes('email'));
 
         if (!emailColumn) {
-            return res.status(400).send('No email column found in the uploaded file.');
+            return res.status(400).json({ message: 'No email column found in the uploaded file.' });
         }
 
         const emails = data.map(row => row[emailColumn]);
@@ -20,10 +20,24 @@ export const uploadFile = async (req, res) => {
         // Filter out invalid emails if needed
         const validEmails = emails.filter(email => /\S+@\S+\.\S+/.test(email));
 
-        Email.insertMany(emails.map(email => ({ email })), (err, docs) => {
-            if (err) return res.status(500).send(err);
-            res.status(200).send(docs);
-        });
+        // Check for existing emails in the database
+        const existingEmails = await Email.find({ email: { $in: validEmails } }).select('email');
+
+        // Create a set of existing emails for easy lookup
+        const existingEmailsSet = new Set(existingEmails.map(e => e.email));
+
+        // Filter out emails that are already in the database
+        const newEmails = validEmails.filter(email => !existingEmailsSet.has(email));
+
+
+        if (newEmails.length === 0) {
+            return res.status(400).json({ message: 'All emails in the file already exist.' });
+        }
+
+        // Insert only new, non-duplicate emails
+        const result = await Email.insertMany(newEmails.map(email => ({ email })));
+
+        res.status(201).send(result);
     } catch (error) {
         console.error(error);
         res.status(500).send('unable to upload file');
