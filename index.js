@@ -4,6 +4,9 @@ import cors from "cors";
 import bodyParser from 'body-parser';
 
 import databaseConnection from './utils/databaseConnection.js';
+import { upload } from "./middlewares/multer.js";
+import { uploadFile } from './controller/uploadFileController.js';
+import { addEmailManually, getAllEmails } from './controller/emailController.js';
 
 // Declaration
 dotenv.config();
@@ -21,6 +24,11 @@ app.use(cors({
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("uploads"));
+
+// routes
+app.post('/upload', upload.single("file"), uploadFile);
+app.post('/add-email', addEmailManually);
+app.get('/get-emails', getAllEmails);
 
 // Connect to server
 app.listen(process.env.PORT, (error) => {
