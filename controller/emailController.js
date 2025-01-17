@@ -17,6 +17,11 @@ export const getAllEmails = async (req, res) => {
 export const addEmailManually = async (req, res) => {
     try {
         const { email } = req.body;
+
+        const prevEmail = await Email.findOne({ email });
+
+        if (prevEmail) return res.status(400).json({ message: "Email already exists" });
+
         const newEmail = new Email({ email });
         await newEmail.save();
         res.status(201).send(newEmail);
