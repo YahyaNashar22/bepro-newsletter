@@ -37,10 +37,10 @@ export const uploadFile = async (req, res) => {
         // Insert only new, non-duplicate emails
         const result = await Email.insertMany(newEmails.map(email => ({ email })));
 
-        res.status(201).send(result);
+        res.status(201).json({ message: "emails added successfully", payload: result });
     } catch (error) {
         console.error(error);
-        res.status(500).send('unable to upload file');
+        res.status(500).json({ message: 'unable to upload file' });
     }
 
 }

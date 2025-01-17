@@ -7,6 +7,7 @@ function FileUpload() {
   const [file, setFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -40,6 +41,7 @@ function FileUpload() {
     formData.append("file", file);
 
     try {
+      setLoading(true);
       await axios.post(`${backendURL}/upload`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -61,13 +63,17 @@ function FileUpload() {
       } else {
         setError("An unexpected error occurred.");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <input type="file" onChange={handleFileChange} />
-      <button type="submit">Upload</button>
+      <button type="submit" disabled={loading}>
+        Upload
+      </button>
       {error && <p style={{ color: "red" }}>{error}</p>}
       {success && <p style={{ color: "green" }}>{success}</p>}
     </form>
