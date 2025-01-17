@@ -69,13 +69,14 @@ function FileUpload() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="file" onChange={handleFileChange} />
-      <button type="submit" disabled={loading}>
-        Upload
+    <form onSubmit={handleSubmit} className="file-upload-container">
+      <input type="file" onChange={handleFileChange} className="file-input" />
+      <button type="submit" disabled={loading} className="upload-btn">
+        {loading ? "Uploading..." : "Upload"}
       </button>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {success && <p style={{ color: "green" }}>{success}</p>}
+
+      {error && <p className="error-message">{error}</p>}
+      {success && <p className="success-message">{success}</p>}
     </form>
   );
 }

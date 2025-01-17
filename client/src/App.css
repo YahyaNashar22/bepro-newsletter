@@ -216,6 +216,77 @@ main {
   background-color: #45a049;
 }
 
+/* Form container styling */
+.file-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+}
+
+/* File input styling */
+.file-input {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 100%;
+  font-size: 14px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.file-input:focus {
+  border-color: #4caf50;
+  outline: none;
+}
+
+/* Upload button styling */
+.upload-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 100%;
+  max-width: 200px;
+}
+
+.upload-btn:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+.upload-btn:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+}
+
+/* Success/Error messages styling */
+p {
+  margin-top: 15px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.success-message {
+  color: #4caf50;
+}
+
+.error-message {
+  color: #f44336;
+}
+
 @media (min-width: 800px) {
   .emails-container {
     width: 800px;

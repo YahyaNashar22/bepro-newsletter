@@ -6,6 +6,7 @@ interface DialogProps {
   submitText: string;
   onSubmit: () => void;
   onClose: () => void;
+  showSubmit?: boolean;
 }
 
 const Dialog: React.FC<DialogProps> = ({
@@ -14,6 +15,7 @@ const Dialog: React.FC<DialogProps> = ({
   submitText,
   onSubmit,
   onClose,
+  showSubmit = true,
 }) => {
   return (
     <div className="dialog-overlay">
@@ -24,9 +26,11 @@ const Dialog: React.FC<DialogProps> = ({
           <button className="dialog-close-btn" onClick={onClose}>
             Close
           </button>
-          <button className="dialog-submit-btn" onClick={onSubmit}>
-            {submitText}
-          </button>
+          {showSubmit && (
+            <button className="dialog-submit-btn" onClick={onSubmit}>
+              {submitText}
+            </button>
+          )}
         </div>
       </div>
     </div>

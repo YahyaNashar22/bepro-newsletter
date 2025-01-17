@@ -36,7 +36,11 @@ const DeleteEmail = () => {
     }
   };
   return (
-    <form method="DELETE" onSubmit={handleSubmit}>
+    <form
+      method="DELETE"
+      onSubmit={handleSubmit}
+      className="file-upload-container"
+    >
       <label>
         email:
         <input
@@ -44,13 +48,14 @@ const DeleteEmail = () => {
           value={email}
           onChange={handleChange}
           placeholder="email@provider.com..."
+          className="file-input"
         />
       </label>
-      <button type="submit" disabled={loading}>
-        Remove
+      <button type="submit" disabled={loading} className="upload-btn">
+        {loading ? "Deleting..." : "Delete"}
       </button>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {success && <p style={{ color: "green" }}>{success}</p>}
+      {error && <p className="error-message">{error}</p>}
+      {success && <p className="success-message">{success}</p>}
     </form>
   );
 };

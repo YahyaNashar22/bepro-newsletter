@@ -40,7 +40,11 @@ const AddEmailManually = () => {
     }
   };
   return (
-    <form method="POST" onSubmit={handleSubmit}>
+    <form
+      method="POST"
+      onSubmit={handleSubmit}
+      className="file-upload-container"
+    >
       <label>
         email:
         <input
@@ -48,13 +52,14 @@ const AddEmailManually = () => {
           value={email}
           onChange={handleChange}
           placeholder="email@provider.com..."
+          className="file-input"
         />
       </label>
-      <button type="submit" disabled={loading}>
-        Add
+      <button type="submit" disabled={loading} className="upload-btn">
+      {loading ? "Adding..." : "Add"}
       </button>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {success && <p style={{ color: "green" }}>{success}</p>}
+      {error && <p className="error-message">{error}</p>}
+      {success && <p className="success-message">{success}</p>}
     </form>
   );
 };

@@ -39,9 +39,9 @@ const TrashCan = ({ email }: { email: string }) => {
       />
       {isDialogOpen && (
         <Dialog
-          title="Delete Email"
+          title="Remove Email"
           content={<p>Are you sure you want to delete {email}?</p>}
-          submitText="Delete"
+          submitText="Remove"
           onSubmit={handleDelete}
           onClose={handleClose}
         />
