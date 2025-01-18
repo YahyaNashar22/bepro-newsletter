@@ -228,16 +228,18 @@ main {
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border: 1px solid #ccc;
+  font-size: 1.3rem;
 }
 
 /* File input styling */
 .file-input {
   margin-bottom: 20px;
+  margin-top:20px;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
   width: 100%;
-  font-size: 14px;
+  font-size: 1.1rem;
   background-color: #fff;
   cursor: pointer;
 }
