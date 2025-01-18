@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import AvailableEmails from "../components/AvailableEmails";
 import Header from "../components/Header";
 import axios from "axios";
+import WelcomeDialog from "../components/WelcomeDialog";
 
 export interface email {
   email: string;
@@ -31,8 +32,13 @@ const Home = () => {
 
   return (
     <>
+      <WelcomeDialog />
       <Header fetchEmails={fetchEmails} />
-      <AvailableEmails emails={emails} loading={loading} fetchEmails={fetchEmails} />
+      <AvailableEmails
+        emails={emails}
+        loading={loading}
+        fetchEmails={fetchEmails}
+      />
     </>
   );
 };

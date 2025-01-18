@@ -292,8 +292,53 @@ p {
   resize: none;
 }
 
+.dashboard-welcome {
+  text-align: center;
+  background-color: #f9f9f9;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 50px auto;
+  font-family: "Arial", sans-serif;
+}
+
+.dashboard-title {
+  font-size: 2.5rem;
+  color: var(--medium-green); /* Bright color to catch attention */
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4),
+    4px 4px 10px rgba(255, 105, 180, 0.3);
+  font-family: "Permanent Marker", cursive; /* Graffiti-like font */
+  letter-spacing: 2px;
+  transform: translateY(-2px);
+}
+
+.dashboard-subtitle {
+  font-size: 1.5rem;
+  color: var(--dark-grey);
+}
+
+.dashboard-version {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.dashboard-message,
+.dashboard-enjoy {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.dashboard-enjoy {
+  font-weight: bold;
+  color: #4caf50;
+}
+
 @media (min-width: 800px) {
-  .emails-container{
+  .emails-container {
     width: 800px;
   }
 }
