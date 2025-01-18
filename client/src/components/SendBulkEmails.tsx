@@ -8,6 +8,7 @@ const SendBulkEmails = () => {
   const [content, setContent] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setError(null);
@@ -50,6 +51,10 @@ const SendBulkEmails = () => {
 
       setSubject("");
       setContent("");
+      setSuccess("Email sent successfully");
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     } catch (error) {
       console.error(error);
     } finally {
@@ -57,7 +62,11 @@ const SendBulkEmails = () => {
     }
   };
   return (
-    <form method="POST" onSubmit={handleSubmit}>
+    <form
+      method="POST"
+      onSubmit={handleSubmit}
+      className="file-upload-container"
+    >
       <label>
         Subject:
         <input
@@ -65,6 +74,7 @@ const SendBulkEmails = () => {
           name="subject"
           value={subject}
           onChange={handleChange}
+          className="file-input"
         />
       </label>
       <label>
@@ -74,12 +84,14 @@ const SendBulkEmails = () => {
           name="content"
           value={content}
           onChange={handleChange}
+          className="file-input"
         />
       </label>
-      <button type="submit" disabled={loading}>
-        Send
+      <button type="submit" disabled={loading} className="upload-btn">
+        {loading ? "Sending..." : "Send"}
       </button>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="error-message">{error}</p>}
+      {success && <p className="success-message">{success}</p>}
     </form>
   );
 };

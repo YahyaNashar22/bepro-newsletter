@@ -61,7 +61,7 @@ ul {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 300px;
+  width: 400px;
   margin: auto;
   padding: 20px;
 }
@@ -72,14 +72,13 @@ li {
 
 .navLink img {
   border-radius: 50%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.2s;
   cursor: pointer;
+  background-color: transparent;
 }
 
 .navLink img:hover {
   transform: translateY(-5px); /* Elevate the button */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* More prominent shadow */
 }
 
 .navLink img:active {

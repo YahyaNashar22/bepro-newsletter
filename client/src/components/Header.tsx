@@ -2,16 +2,20 @@ import { useState } from "react";
 import excel from "../assets/excel.png";
 import plus from "../assets/plus.png";
 import trash from "../assets/trash.png";
+import email from "../assets/email.png";
+
 import Dialog from "./Dialog";
 import FileUpload from "./FileUpload";
 import AddEmailManually from "./AddEmailManually";
 import DeleteEmail from "./DeleteEmail";
+import SendBulkEmails from "./SendBulkEmails";
 
 const Header = () => {
   const [isExcelDialogOpen, setExcelDialogOpen] = useState<boolean>(false);
   const [isManualAddDialogOpen, setManualAddDialogOpen] =
     useState<boolean>(false);
   const [isDeleteDialogOpen, setDeleteDialogOpen] = useState<boolean>(false);
+  const [isEmailDialogOpen, setEmailDialogOpen] = useState<boolean>(false);
 
   const openExcelDialog = () => {
     setExcelDialogOpen(true);
@@ -22,11 +26,15 @@ const Header = () => {
   const openDeleteDialog = () => {
     setDeleteDialogOpen(true);
   };
+  const openEmailDialog = () => {
+    setEmailDialogOpen(true);
+  };
 
   const handleCloseDialog = () => {
     setExcelDialogOpen(false);
     setManualAddDialogOpen(false);
     setDeleteDialogOpen(false);
+    setEmailDialogOpen(false);
   };
 
   const handleSubmit = () => {};
@@ -62,6 +70,15 @@ const Header = () => {
                 onClick={openDeleteDialog}
               />
             </li>
+            <li className="navLink">
+              <img
+                src={email}
+                width={64}
+                height={64}
+                alt="nav icons"
+                onClick={openEmailDialog}
+              />
+            </li>
           </ul>
         </nav>
       </header>
@@ -91,6 +108,16 @@ const Header = () => {
           title="Remove Email"
           content={<DeleteEmail />}
           submitText="Remove"
+          onSubmit={handleSubmit}
+          onClose={handleCloseDialog}
+          showSubmit={false}
+        />
+      )}
+      {isEmailDialogOpen && (
+        <Dialog
+          title="Send Email"
+          content={<SendBulkEmails />}
+          submitText="Send"
           onSubmit={handleSubmit}
           onClose={handleCloseDialog}
           showSubmit={false}

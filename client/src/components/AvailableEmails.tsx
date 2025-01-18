@@ -29,7 +29,7 @@ const AvailableEmails = () => {
 
   return (
     <main>
-      <h1 className="title">AvailableEmails</h1>
+      <h1 className="title">Available Emails</h1>
       <ul className="emails-container">
         {loading ? (
           <li className="loader">Getting your emails...</li>
