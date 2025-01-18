@@ -27,8 +27,6 @@ const Login = () => {
 
       const user = res.data.payload;
 
-      console.log(user);
-
       // Store the token
       localStorage.setItem("token", user);
       window.location.reload();

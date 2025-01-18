@@ -37,6 +37,15 @@ app.post('/create-user', createUser);
 app.post('/login', login);
 
 
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'client', 'dist')));
+
+// Handle React routing, return all requests to React app
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+});
+
+
 
 // Connect to server
 app.listen(process.env.PORT, (error) => {
