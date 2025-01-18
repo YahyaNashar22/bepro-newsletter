@@ -167,7 +167,7 @@ main {
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
-  width: 300px;
+  width: 400px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -286,8 +286,14 @@ p {
   color: #f44336;
 }
 
+.email-content {
+  height: 200px;
+  text-align: start;
+  resize: none;
+}
+
 @media (min-width: 800px) {
-  .emails-container {
+  .emails-container{
     width: 800px;
   }
 }

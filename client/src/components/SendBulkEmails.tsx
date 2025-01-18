@@ -14,19 +14,16 @@ const SendBulkEmails = ({
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleSubjectChange = (e: ChangeEvent<HTMLInputElement>) => {
     setError(null);
-    const { name, value } = e.target;
-    switch (name) {
-      case "subject":
-        setSubject(value);
-        break;
-      case "content":
-        setContent(value);
-        break;
-      default:
-        break;
-    }
+
+    setSubject(e.target.value);
+  };
+
+  const handleContentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setError(null);
+
+    setContent(e.target.value);
   };
 
   const handleSubmit = async (e: FormEvent) => {
@@ -77,18 +74,17 @@ const SendBulkEmails = ({
           type="text"
           name="subject"
           value={subject}
-          onChange={handleChange}
+          onChange={handleSubjectChange}
           className="file-input"
         />
       </label>
       <label>
         Content:
-        <input
-          type="text"
+        <textarea
           name="content"
           value={content}
-          onChange={handleChange}
-          className="file-input"
+          onChange={handleContentChange}
+          className="file-input email-content"
         />
       </label>
       <button type="submit" disabled={loading} className="upload-btn">
