@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from "dotenv";
 import cors from "cors";
 import bodyParser from 'body-parser';
+import path from "path";
 
 import databaseConnection from './utils/databaseConnection.js';
 import { upload } from "./middlewares/multer.js";
