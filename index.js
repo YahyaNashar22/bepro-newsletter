@@ -7,6 +7,7 @@ import databaseConnection from './utils/databaseConnection.js';
 import { upload } from "./middlewares/multer.js";
 import { uploadFile } from './controller/uploadFileController.js';
 import { addEmailManually, getAllEmails, removeEmail, sendBulkEmails } from './controller/emailController.js';
+import { createUser, login } from './controller/userController.js';
 
 // Declaration
 dotenv.config();
@@ -31,6 +32,10 @@ app.post('/add-email', addEmailManually);
 app.post('/send-bulk-emails', sendBulkEmails);
 app.get('/get-emails', getAllEmails);
 app.delete('/delete-email/:email', removeEmail);
+
+app.post('/create-user', createUser);
+app.post('/login', login);
+
 
 
 // Connect to server

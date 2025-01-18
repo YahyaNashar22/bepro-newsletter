@@ -70,6 +70,14 @@ li {
   list-style: none;
 }
 
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100dvh;
+}
+
 .navLink img {
   border-radius: 50%;
   transition: transform 0.2s;
@@ -234,7 +242,7 @@ main {
 /* File input styling */
 .file-input {
   margin-bottom: 20px;
-  margin-top:20px;
+  margin-top: 20px;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;

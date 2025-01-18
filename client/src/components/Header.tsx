@@ -3,6 +3,7 @@ import excel from "../assets/excel.png";
 import plus from "../assets/plus.png";
 import trash from "../assets/trash.png";
 import email from "../assets/email.png";
+import signout from "../assets/signout.png";
 
 import Dialog from "./Dialog";
 import FileUpload from "./FileUpload";
@@ -16,6 +17,7 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
     useState<boolean>(false);
   const [isDeleteDialogOpen, setDeleteDialogOpen] = useState<boolean>(false);
   const [isEmailDialogOpen, setEmailDialogOpen] = useState<boolean>(false);
+  const [isSignoutDialogOpen, setSignoutDialogOpen] = useState<boolean>(false);
 
   const openExcelDialog = () => {
     setExcelDialogOpen(true);
@@ -29,12 +31,21 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
   const openEmailDialog = () => {
     setEmailDialogOpen(true);
   };
+  const openSignoutDialog = () => {
+    setSignoutDialogOpen(true);
+  };
 
   const handleCloseDialog = () => {
     setExcelDialogOpen(false);
     setManualAddDialogOpen(false);
     setDeleteDialogOpen(false);
     setEmailDialogOpen(false);
+    setSignoutDialogOpen(false);
+  };
+
+  const handleSignout = () => {
+    localStorage.removeItem("token");
+    window.location.reload();
   };
 
   return (
@@ -78,6 +89,15 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
                 onClick={openEmailDialog}
               />
             </li>
+            <li className="navLink">
+              <img
+                src={signout}
+                width={64}
+                height={64}
+                alt="nav icons"
+                onClick={openSignoutDialog}
+              />
+            </li>
           </ul>
         </nav>
       </header>
@@ -85,7 +105,12 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
       {isExcelDialogOpen && (
         <Dialog
           title="Upload From Excel"
-          content={<FileUpload handleCloseDialog={handleCloseDialog} fetchEmails={fetchEmails} />}
+          content={
+            <FileUpload
+              handleCloseDialog={handleCloseDialog}
+              fetchEmails={fetchEmails}
+            />
+          }
           submitText="Delete"
           onClose={handleCloseDialog}
           showSubmit={false}
@@ -94,7 +119,12 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
       {isManualAddDialogOpen && (
         <Dialog
           title="Add Email Manually"
-          content={<AddEmailManually handleCloseDialog={handleCloseDialog} fetchEmails={fetchEmails} />}
+          content={
+            <AddEmailManually
+              handleCloseDialog={handleCloseDialog}
+              fetchEmails={fetchEmails}
+            />
+          }
           submitText="Delete"
           onClose={handleCloseDialog}
           showSubmit={false}
@@ -103,7 +133,12 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
       {isDeleteDialogOpen && (
         <Dialog
           title="Remove Email"
-          content={<DeleteEmail handleCloseDialog={handleCloseDialog} fetchEmails={fetchEmails} />}
+          content={
+            <DeleteEmail
+              handleCloseDialog={handleCloseDialog}
+              fetchEmails={fetchEmails}
+            />
+          }
           submitText="Remove"
           onClose={handleCloseDialog}
           showSubmit={false}
@@ -116,6 +151,19 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
           submitText="Send"
           onClose={handleCloseDialog}
           showSubmit={false}
+        />
+      )}
+      {isSignoutDialogOpen && (
+        <Dialog
+          title="Sign Out"
+          content={
+            <p style={{ fontSize: "1.2rem" }}>
+              Are you sure you want to sign out?
+            </p>
+          }
+          submitText="sign out"
+          onClose={handleCloseDialog}
+          onSubmit={handleSignout}
         />
       )}
     </>
