@@ -4,7 +4,7 @@ interface DialogProps {
   title: string;
   content: ReactNode;
   submitText: string;
-  onSubmit: () => void;
+  onSubmit?: () => void;
   onClose: () => void;
   showSubmit?: boolean;
 }

@@ -1,7 +1,13 @@
 import axios from "axios";
 import { ChangeEvent, FormEvent, useState } from "react";
 
-const AddEmailManually = () => {
+const AddEmailManually = ({
+  handleCloseDialog,
+  fetchEmails,
+}: {
+  handleCloseDialog: () => void;
+  fetchEmails: () => void;
+}) => {
   const backendURL = import.meta.env.VITE_PORT;
 
   const [email, setEmail] = useState<string>("");
@@ -27,8 +33,9 @@ const AddEmailManually = () => {
 
       if (res.status == 201) {
         setSuccess("Email added successfully");
+        fetchEmails();
         setTimeout(() => {
-          window.location.reload();
+          handleCloseDialog();
         }, 1000);
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -56,7 +63,7 @@ const AddEmailManually = () => {
         />
       </label>
       <button type="submit" disabled={loading} className="upload-btn">
-      {loading ? "Adding..." : "Add"}
+        {loading ? "Adding..." : "Add"}
       </button>
       {error && <p className="error-message">{error}</p>}
       {success && <p className="success-message">{success}</p>}

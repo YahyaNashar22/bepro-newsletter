@@ -1,7 +1,13 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import axios from "axios";
 
-function FileUpload() {
+function FileUpload({
+  handleCloseDialog,
+  fetchEmails,
+}: {
+  handleCloseDialog: () => void;
+  fetchEmails: () => void;
+}) {
   const backendURL = import.meta.env.VITE_PORT;
 
   const [file, setFile] = useState<File | null>(null);
@@ -48,9 +54,9 @@ function FileUpload() {
         },
       });
       setSuccess("File uploaded successfully!");
-
+      fetchEmails();
       setTimeout(() => {
-        window.location.reload();
+        handleCloseDialog();
       }, 1000);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {

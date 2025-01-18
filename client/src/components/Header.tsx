@@ -10,7 +10,7 @@ import AddEmailManually from "./AddEmailManually";
 import DeleteEmail from "./DeleteEmail";
 import SendBulkEmails from "./SendBulkEmails";
 
-const Header = () => {
+const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
   const [isExcelDialogOpen, setExcelDialogOpen] = useState<boolean>(false);
   const [isManualAddDialogOpen, setManualAddDialogOpen] =
     useState<boolean>(false);
@@ -37,7 +37,6 @@ const Header = () => {
     setEmailDialogOpen(false);
   };
 
-  const handleSubmit = () => {};
   return (
     <>
       <header>
@@ -86,9 +85,8 @@ const Header = () => {
       {isExcelDialogOpen && (
         <Dialog
           title="Upload From Excel"
-          content={<FileUpload />}
+          content={<FileUpload handleCloseDialog={handleCloseDialog} fetchEmails={fetchEmails} />}
           submitText="Delete"
-          onSubmit={handleSubmit}
           onClose={handleCloseDialog}
           showSubmit={false}
         />
@@ -96,9 +94,8 @@ const Header = () => {
       {isManualAddDialogOpen && (
         <Dialog
           title="Add Email Manually"
-          content={<AddEmailManually />}
+          content={<AddEmailManually handleCloseDialog={handleCloseDialog} fetchEmails={fetchEmails} />}
           submitText="Delete"
-          onSubmit={handleSubmit}
           onClose={handleCloseDialog}
           showSubmit={false}
         />
@@ -106,9 +103,8 @@ const Header = () => {
       {isDeleteDialogOpen && (
         <Dialog
           title="Remove Email"
-          content={<DeleteEmail />}
+          content={<DeleteEmail handleCloseDialog={handleCloseDialog} fetchEmails={fetchEmails} />}
           submitText="Remove"
-          onSubmit={handleSubmit}
           onClose={handleCloseDialog}
           showSubmit={false}
         />
@@ -116,9 +112,8 @@ const Header = () => {
       {isEmailDialogOpen && (
         <Dialog
           title="Send Email"
-          content={<SendBulkEmails />}
+          content={<SendBulkEmails handleCloseDialog={handleCloseDialog} />}
           submitText="Send"
-          onSubmit={handleSubmit}
           onClose={handleCloseDialog}
           showSubmit={false}
         />

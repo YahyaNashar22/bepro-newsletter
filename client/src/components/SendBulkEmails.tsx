@@ -1,7 +1,11 @@
 import axios from "axios";
 import { ChangeEvent, FormEvent, useState } from "react";
 
-const SendBulkEmails = () => {
+const SendBulkEmails = ({
+  handleCloseDialog,
+}: {
+  handleCloseDialog: () => void;
+}) => {
   const backendURL = import.meta.env.VITE_PORT;
 
   const [subject, setSubject] = useState<string>("");
@@ -53,7 +57,7 @@ const SendBulkEmails = () => {
       setContent("");
       setSuccess("Email sent successfully");
       setTimeout(() => {
-        window.location.reload();
+        handleCloseDialog();
       }, 1000);
     } catch (error) {
       console.error(error);

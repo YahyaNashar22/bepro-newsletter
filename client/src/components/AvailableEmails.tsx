@@ -1,32 +1,15 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { email } from "../pages/Home";
 import TrashCan from "./TrashCan";
 
-interface email {
-  email: string;
-  _id: string;
-}
-
-const AvailableEmails = () => {
-  const backendURL = import.meta.env.VITE_PORT;
-
-  const [emails, setEmails] = useState<[] | email[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    const fetchEmails = async () => {
-      try {
-        const response = await axios.get(`${backendURL}/get-emails`);
-        setEmails(response.data.payload);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchEmails();
-  }, [backendURL]);
-
+const AvailableEmails = ({
+  emails,
+  loading,
+  fetchEmails,
+}: {
+  emails: email[];
+  loading: boolean;
+  fetchEmails: () => void;
+}) => {
   return (
     <main>
       <h1 className="title">Available Emails</h1>
@@ -39,7 +22,7 @@ const AvailableEmails = () => {
               <li className="email" key={email._id}>
                 {email.email}{" "}
                 <span>
-                  <TrashCan email={email.email} />
+                  <TrashCan email={email.email} fetchEmails={fetchEmails} />
                 </span>
               </li>
             );

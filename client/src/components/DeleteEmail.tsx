@@ -1,7 +1,13 @@
 import axios from "axios";
 import { ChangeEvent, FormEvent, useState } from "react";
 
-const DeleteEmail = () => {
+const DeleteEmail = ({
+  handleCloseDialog,
+  fetchEmails,
+}: {
+  handleCloseDialog: () => void;
+  fetchEmails: () => void;
+}) => {
   const backendURL = import.meta.env.VITE_PORT;
 
   const [email, setEmail] = useState<string>("");
@@ -23,8 +29,9 @@ const DeleteEmail = () => {
 
       if (res.status == 200) {
         setSuccess("Email removed successfully");
+        fetchEmails();
         setTimeout(() => {
-          window.location.reload();
+          handleCloseDialog();
         }, 1000);
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
