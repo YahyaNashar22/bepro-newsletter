@@ -6,6 +6,11 @@
   --medium-grey: #757575;
   --dark-grey: #424242;
   --font-color: #ffffff;
+  --tiffany-blue: #7ac2bc;
+  --lighter-tiffany: #7ccac3;
+  --platinum: #d8d9d9;
+  --white: #ffffff;
+  --shadow-color: #bcc0c1;
 }
 
 /* Custom scrollbar for Webkit browsers (Chrome, Safari, Edge) */
@@ -29,12 +34,12 @@
 }
 
 body {
-  background-color: var(--light-grey);
+  background-color: var(--platinum);
   color: var(--font-color);
 }
 
 button {
-  background-color: var(--medium-green);
+  background-color: var(--tiffany-blue);
   color: var(--font-color);
 }
 
@@ -53,6 +58,11 @@ nav {
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+
+.navLinks{
+  display: flex;
+flex-direction: column;
 }
 
 ul {
@@ -172,7 +182,7 @@ main {
 
 /* Dialog Box */
 .dialog-box {
-  background-color: #fff;
+  background-color: var(--white);
   padding: 20px;
   border-radius: 8px;
   width: 400px;
@@ -206,21 +216,26 @@ main {
 }
 
 .dialog-close-btn {
-  background-color: #f0f0f0;
-  color: #333;
+  background-color: var(--white);
+  border: 1px solid var(--tiffany-blue);
+  border-radius: 5px;
+  color: var(--tiffany-blue);
+  transition: 0.3s linear;
 }
 
 .dialog-close-btn:hover {
-  background-color: #e0e0e0;
+  background-color: var(--tiffany-blue);
+  color: var(--white);
 }
 
 .dialog-submit-btn {
-  background-color: #4caf50;
-  color: #fff;
+  background-color: var(--tiffany-blue);
+  color: var(--white);
+  transition: 0.3s linear;
 }
 
 .dialog-submit-btn:hover {
-  background-color: #45a049;
+  background-color: var(--lighter-tiffany);
 }
 
 /* Form container styling */
@@ -233,7 +248,7 @@ main {
   margin: 0 auto;
   padding: 20px;
   background-color: #f9f9f9;
-  border-radius: 8px;
+  border-radius: 18px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border: 1px solid #ccc;
   font-size: 1.3rem;
@@ -244,8 +259,8 @@ main {
   margin-bottom: 20px;
   margin-top: 20px;
   padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  border: 1px solid var(--tiffany-blue);
+  border-radius: 5px;
   width: 100%;
   font-size: 1.1rem;
   background-color: #fff;
@@ -289,11 +304,11 @@ p {
 }
 
 .success-message {
-  color: #4caf50;
+  color: var(--lighter-tiffany);
 }
 
 .error-message {
-  color: #f44336;
+  color: var(--dark-grey);
 }
 
 .email-content {
@@ -307,7 +322,7 @@ p {
   background-color: #f9f9f9;
   padding: 40px;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px var(--shadow-color);
   max-width: 600px;
   margin: 50px auto;
   font-family: "Arial", sans-serif;
@@ -315,7 +330,7 @@ p {
 
 .dashboard-title {
   font-size: 2.5rem;
-  color: var(--medium-green); /* Bright color to catch attention */
+  color: var(--tiffany-blue); /* Bright color to catch attention */
   margin-bottom: 20px;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4),
     4px 4px 10px rgba(255, 105, 180, 0.3);
@@ -331,7 +346,7 @@ p {
 
 .dashboard-version {
   font-size: 1.2rem;
-  color: #666;
+  color: var(--lighter-tiffany);
   margin-bottom: 10px;
 }
 
@@ -344,7 +359,59 @@ p {
 
 .dashboard-enjoy {
   font-weight: bold;
-  color: #4caf50;
+  color: var(--tiffany-blue);
+}
+
+/* Log in form */
+.login-input {
+  width: 100%;
+  padding: 10px 20px;
+  border: 1px solid var(--tiffany-blue);
+  border-radius: 12px;
+  margin-bottom: 10px;
+  font-size: 20px;
+  color: var(--dark-grey);
+}
+
+.login-input:focus {
+  border-color: var(--lighter-tiffany);
+  outline: none;
+}
+
+.login-btn {
+  padding: 10px 20px;
+  font-size: 20px;
+  background-color: var(--tiffany-blue);
+  color: var(--white);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 5px 5px 5px var(--shadow-color);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 100%;
+}
+
+.login-btn:hover {
+  background-color: var(--lighter-tiffany);
+  transform: translateY(-2px);
+}
+
+.login-btn:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+.login-form {
+  box-shadow: 10px 10px 10px 10px var(--shadow-color);
+  width: 100%;
+}
+
+.login-label {
+  width: 100%;
+}
+
+.person {
+  margin-bottom: 10px;
 }
 
 @media (min-width: 800px) {

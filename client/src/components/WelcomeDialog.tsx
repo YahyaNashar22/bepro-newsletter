@@ -41,7 +41,7 @@ const WelcomeDialogContent = () => {
       <h2 className="dashboard-subtitle">
         Welcome To Your New Emails Dashboard
       </h2>
-      <p className="dashboard-version">This is version 1.0</p>
+      <p className="dashboard-version">This is version 2.0</p>
       <p className="dashboard-message">
         Additional enhancements can be done based on your request
       </p>

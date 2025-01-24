@@ -1,6 +1,8 @@
 import axios from "axios";
 import { ChangeEvent, FormEvent, useState } from "react";
 
+import person from "../assets/person.png";
+
 const Login = () => {
   const backendURL = import.meta.env.VITE_PORT;
 
@@ -44,32 +46,31 @@ const Login = () => {
       <form
         method="POST"
         onSubmit={handleSubmit}
-        className="file-upload-container"
+        className="file-upload-container login-form"
       >
-        <label>
-          username:
+        <img src={person} width={64} height={64}  alt="person" className="person" />
+        <label  className="login-label">
           <input
             type="text"
             name="username"
             value={username}
             onChange={handleChange}
-            placeholder="your username"
-            className="file-input"
+            placeholder="Username"
+            className="login-input"
           />
         </label>
 
-        <label>
-          password:
+        <label className="login-label">
           <input
             type="password"
             name="password"
             value={password}
             onChange={handleChange}
-            placeholder="your password"
-            className="file-input"
+            placeholder="Password"
+            className="login-input"
           />
-        </label>
-        <button type="submit" disabled={loading} className="upload-btn">
+        </label >
+        <button type="submit" disabled={loading} className="login-btn">
           {loading ? "Logging in..." : "Log in"}
         </button>
         {error && <p className="error-message">{error}</p>}

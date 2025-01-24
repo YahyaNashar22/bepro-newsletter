@@ -50,9 +50,8 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
 
   return (
     <>
-      <header>
         <nav>
-          <ul>
+          <ul className="navLinks">
             <li className="navLink">
               <img
                 src={excel}
@@ -100,7 +99,6 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
             </li>
           </ul>
         </nav>
-      </header>
 
       {isExcelDialogOpen && (
         <Dialog
