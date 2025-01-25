@@ -50,55 +50,60 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
 
   return (
     <>
-        <nav>
-          <ul className="navLinks">
-            <li className="navLink">
-              <img
-                src={excel}
-                width={64}
-                height={64}
-                alt="nav icons"
-                onClick={openExcelDialog}
-              />
-            </li>
-            <li className="navLink">
-              <img
-                src={plus}
-                width={64}
-                height={64}
-                alt="nav icons"
-                onClick={openManualAddDialog}
-              />
-            </li>
-            <li className="navLink">
-              <img
-                src={trash}
-                width={64}
-                height={64}
-                alt="nav icons"
-                onClick={openDeleteDialog}
-              />
-            </li>
-            <li className="navLink">
-              <img
-                src={email}
-                width={64}
-                height={64}
-                alt="nav icons"
-                onClick={openEmailDialog}
-              />
-            </li>
-            <li className="navLink">
-              <img
-                src={signout}
-                width={64}
-                height={64}
-                alt="nav icons"
-                onClick={openSignoutDialog}
-              />
-            </li>
-          </ul>
-        </nav>
+      <nav>
+        <ul className="navLinks">
+          <li className="navLink">
+            <img
+              src={excel}
+              width={32}
+              height={32}
+              alt="nav icons"
+              onClick={openExcelDialog}
+            />
+            <p>Excel</p>
+          </li>
+          <li className="navLink">
+            <img
+              src={plus}
+              width={32}
+              height={32}
+              alt="nav icons"
+              onClick={openManualAddDialog}
+            />
+            <p>Add Mail</p>
+          </li>
+          <li className="navLink">
+            <img
+              src={trash}
+              width={32}
+              height={32}
+              alt="nav icons"
+              onClick={openDeleteDialog}
+            />
+            <p>Trash</p>
+          </li>
+          <li className="navLink">
+            <img
+              src={email}
+              width={32}
+              height={32}
+              alt="nav icons"
+              onClick={openEmailDialog}
+            />
+            <p>Create Mail</p>
+          </li>
+          <li className="navLink">
+            <img
+              src={signout}
+              width={32}
+              height={32}
+              alt="nav icons"
+              onClick={openSignoutDialog}
+            />
+            <p>Logout</p>
+          </li>
+        </ul>
+      </nav>
 
       {isExcelDialogOpen && (
         <Dialog

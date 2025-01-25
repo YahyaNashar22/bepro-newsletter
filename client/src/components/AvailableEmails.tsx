@@ -12,8 +12,86 @@ const AvailableEmails = ({
 }) => {
   return (
     <main>
-      <h1 className="title">Available Emails</h1>
+      <h1 className="title">
+        {" "}
+        <span></span>Available Emails
+      </h1>
       <ul className="emails-container">
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+        <li className="email">email@email.com<span>O</span></li>
+
         {loading ? (
           <li className="loader">Getting your emails...</li>
         ) : emails.length > 0 ? (

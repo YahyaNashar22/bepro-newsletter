@@ -33,12 +33,15 @@ const Home = () => {
   return (
     <>
       <WelcomeDialog />
+      <main className="home-container">
       <Header fetchEmails={fetchEmails} />
       <AvailableEmails
         emails={emails}
         loading={loading}
         fetchEmails={fetchEmails}
       />
+      </main>
+
     </>
   );
 };

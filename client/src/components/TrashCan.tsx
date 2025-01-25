@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import trashCan from "../assets/trans_can.png";
+import trashCan from "../assets/trash.png";
 import Dialog from "./Dialog";
 import { useState } from "react";
 
