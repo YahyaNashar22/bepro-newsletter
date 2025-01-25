@@ -52,54 +52,24 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
     <>
       <nav>
         <ul className="navLinks">
-          <li className="navLink">
-            <img
-              src={excel}
-              width={32}
-              height={32}
-              alt="nav icons"
-              onClick={openExcelDialog}
-            />
+          <li className="navLink" onClick={openExcelDialog}>
+            <img src={excel} width={32} height={32} alt="nav icons" />
             <p>Excel</p>
           </li>
-          <li className="navLink">
-            <img
-              src={plus}
-              width={32}
-              height={32}
-              alt="nav icons"
-              onClick={openManualAddDialog}
-            />
+          <li className="navLink" onClick={openManualAddDialog}>
+            <img src={plus} width={32} height={32} alt="nav icons" />
             <p>Add Mail</p>
           </li>
-          <li className="navLink">
-            <img
-              src={trash}
-              width={32}
-              height={32}
-              alt="nav icons"
-              onClick={openDeleteDialog}
-            />
+          <li className="navLink" onClick={openDeleteDialog}>
+            <img src={trash} width={32} height={32} alt="nav icons" />
             <p>Trash</p>
           </li>
-          <li className="navLink">
-            <img
-              src={email}
-              width={32}
-              height={32}
-              alt="nav icons"
-              onClick={openEmailDialog}
-            />
+          <li className="navLink" onClick={openEmailDialog}>
+            <img src={email} width={32} height={32} alt="nav icons" />
             <p>Create Mail</p>
           </li>
-          <li className="navLink">
-            <img
-              src={signout}
-              width={32}
-              height={32}
-              alt="nav icons"
-              onClick={openSignoutDialog}
-            />
+          <li className="navLink" onClick={openSignoutDialog}>
+            <img src={signout} width={32} height={32} alt="nav icons" />
             <p>Logout</p>
           </li>
         </ul>
@@ -107,35 +77,32 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
 
       {isExcelDialogOpen && (
         <Dialog
-          title="Upload From Excel"
           content={
             <FileUpload
               handleCloseDialog={handleCloseDialog}
               fetchEmails={fetchEmails}
             />
           }
-          submitText="Delete"
           onClose={handleCloseDialog}
           showSubmit={false}
+          showTitle={false}
         />
       )}
       {isManualAddDialogOpen && (
         <Dialog
-          title="Add Email Manually"
           content={
             <AddEmailManually
               handleCloseDialog={handleCloseDialog}
               fetchEmails={fetchEmails}
             />
           }
-          submitText="Delete"
           onClose={handleCloseDialog}
           showSubmit={false}
+          showTitle={false}
         />
       )}
       {isDeleteDialogOpen && (
         <Dialog
-          title="Remove Email"
           content={
             <DeleteEmail
               handleCloseDialog={handleCloseDialog}
@@ -145,15 +112,16 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
           submitText="Remove"
           onClose={handleCloseDialog}
           showSubmit={false}
+          showTitle={false}
         />
       )}
       {isEmailDialogOpen && (
         <Dialog
-          title="Send Email"
           content={<SendBulkEmails handleCloseDialog={handleCloseDialog} />}
           submitText="Send"
           onClose={handleCloseDialog}
           showSubmit={false}
+          showTitle={false}
         />
       )}
       {isSignoutDialogOpen && (
@@ -165,8 +133,9 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
             </p>
           }
           submitText="sign out"
-          onClose={handleCloseDialog}
+          onClose={handleCloseDialog} 
           onSubmit={handleSignout}
+          showTitle={false}
         />
       )}
     </>

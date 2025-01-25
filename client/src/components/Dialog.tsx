@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 
 interface DialogProps {
-  title: string;
+  title?: string;
   content: ReactNode;
   submitText?: string;
   onSubmit?: () => void;

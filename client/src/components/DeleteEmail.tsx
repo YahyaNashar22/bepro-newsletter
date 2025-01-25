@@ -1,6 +1,8 @@
 import axios from "axios";
 import { ChangeEvent, FormEvent, useState } from "react";
 
+import Trash from "../assets/trash_large.png";
+
 const DeleteEmail = ({
   handleCloseDialog,
   fetchEmails,
@@ -48,8 +50,9 @@ const DeleteEmail = ({
       onSubmit={handleSubmit}
       className="file-upload-container"
     >
-      <label>
-        email:
+      <img src={Trash} width={64} height={64} alt="trash icon" />
+      <h1 className="form-title">Remove Email</h1>
+      <label className="login-label">
         <input
           type="email"
           value={email}

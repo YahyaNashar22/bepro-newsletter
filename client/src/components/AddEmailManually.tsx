@@ -1,6 +1,8 @@
 import axios from "axios";
 import { ChangeEvent, FormEvent, useState } from "react";
 
+import Plus from "../assets/plus_large.png";
+
 const AddEmailManually = ({
   handleCloseDialog,
   fetchEmails,
@@ -52,8 +54,9 @@ const AddEmailManually = ({
       onSubmit={handleSubmit}
       className="file-upload-container"
     >
-      <label>
-        email:
+      <img src={Plus} width={64} height={64} alt="email icon" />
+      <h1 className="form-title">Add Email Manually</h1>
+      <label className="login-label">
         <input
           type="email"
           value={email}

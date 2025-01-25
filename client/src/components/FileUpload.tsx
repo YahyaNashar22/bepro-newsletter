@@ -1,6 +1,8 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import axios from "axios";
 
+import Excel from "../assets/excel.png";
+
 function FileUpload({
   handleCloseDialog,
   fetchEmails,
@@ -76,6 +78,9 @@ function FileUpload({
 
   return (
     <form onSubmit={handleSubmit} className="file-upload-container">
+      <img src={Excel} width={64} height={64} alt="Excel icon" />
+      <h1 className="form-title">Upload Excel File</h1>
+
       <input type="file" onChange={handleFileChange} className="file-input" />
       <button type="submit" disabled={loading} className="upload-btn">
         {loading ? "Uploading..." : "Upload"}

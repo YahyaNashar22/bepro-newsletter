@@ -1,6 +1,8 @@
 import axios from "axios";
 import { ChangeEvent, FormEvent, useState } from "react";
 
+import Email from "../assets/email_large.png";
+
 const SendBulkEmails = ({
   handleCloseDialog,
 }: {
@@ -10,6 +12,7 @@ const SendBulkEmails = ({
 
   const [subject, setSubject] = useState<string>("");
   const [content, setContent] = useState<string>("");
+  const [attachment, setAttachment] = useState<File | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -26,6 +29,17 @@ const SendBulkEmails = ({
     setContent(e.target.value);
   };
 
+  const handleAttachmentChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const selectedFile = e.target.files[0];
+
+      setError(null); // Reset error on new file selection
+      setSuccess(null); // Reset success message
+
+      setAttachment(selectedFile);
+    }
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     try {
       e.preventDefault();
@@ -40,12 +54,31 @@ const SendBulkEmails = ({
         return;
       }
 
+      // Validate attachment if it's not null
+      if (attachment) {
+        const validTypes = [
+          "image/jpeg",
+          "image/png",
+          "image/gif",
+          "image/webp",
+          "image/bmp",
+        ];
+
+        if (!validTypes.includes(attachment.type)) {
+          setError(
+            "Invalid file type. Please upload a valid image (.jpeg, .png, .gif, .webp, .bmp)."
+          );
+          setLoading(false);
+          return;
+        }
+      }
+
       await axios.post(
         `${backendURL}/send-bulk-emails`,
-        { subject, content },
+        { subject, content, attachment },
         {
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
           },
         }
       );
@@ -68,23 +101,37 @@ const SendBulkEmails = ({
       onSubmit={handleSubmit}
       className="file-upload-container"
     >
-      <label>
-        Subject:
+      <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+        <img src={Email} width={64} height={64} alt="email icon" />
+        <h1 className="form-title">Create Mail</h1>
+      </div>
+
+      <label className="login-label">
         <input
           type="text"
           name="subject"
           value={subject}
           onChange={handleSubjectChange}
           className="file-input"
+          placeholder="Subject"
         />
       </label>
-      <label>
-        Content:
+      <label className="login-label">
         <textarea
           name="content"
           value={content}
           onChange={handleContentChange}
           className="file-input email-content"
+          placeholder="Content"
+        />
+      </label>
+      <label className="login-label">
+        <input
+          name="attachment"
+          type="file"
+          onChange={handleAttachmentChange}
+          className="file-input"
+          placeholder="attachment"
         />
       </label>
       <button type="submit" disabled={loading} className="upload-btn">
