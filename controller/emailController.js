@@ -2,162 +2,104 @@ import Email from "../model/emailModel.js";
 import sendEmail from "../utils/emailTemplate.js";
 
 export const getAllEmails = async (req, res) => {
-    try {
-        const emails = await Email.find({}).sort({ createdAt: -1 });
-        res.status(200).json({
-            status: 'success',
-            message: 'emails fetched',
-            payload: emails
-        })
-    } catch (error) {
-        res.status(500).json({ message: "Error fetching emails" });
-    }
+  try {
+    const emails = await Email.find({}).sort({ createdAt: -1 });
+    res.status(200).json({
+      status: 'success',
+      message: 'emails fetched',
+      payload: emails
+    })
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching emails" });
+  }
 }
 
 export const addEmailManually = async (req, res) => {
-    try {
-        const { email } = req.body;
+  try {
+    const { email } = req.body;
 
-        const prevEmail = await Email.findOne({ email });
+    const prevEmail = await Email.findOne({ email });
 
-        if (prevEmail) return res.status(400).json({ message: "Email already exists" });
+    if (prevEmail) return res.status(400).json({ message: "Email already exists" });
 
-        const newEmail = new Email({ email });
-        await newEmail.save();
-        res.status(201).send(newEmail);
-    } catch (error) {
-        res.status(500).json({ message: "Error Adding email" });
+    const newEmail = new Email({ email });
+    await newEmail.save();
+    res.status(201).send(newEmail);
+  } catch (error) {
+    res.status(500).json({ message: "Error Adding email" });
 
-    }
+  }
 }
 
 export const removeEmail = async (req, res) => {
-    try {
-        const email = req.params.email;
+  try {
+    const email = req.params.email;
 
-        const foundEmail = await Email.findOne({ email });
+    const foundEmail = await Email.findOne({ email });
 
-        if (!foundEmail) return res.status(404).json({ message: "Email does not exist" });
+    if (!foundEmail) return res.status(404).json({ message: "Email does not exist" });
 
-        await Email.findOneAndDelete({ email });
-        res.status(200).json({ message: "email removed successfully" });
-    } catch (error) {
-        res.status(500).json({ message: "Error removing email" });
-    }
+    await Email.findOneAndDelete({ email });
+    res.status(200).json({ message: "email removed successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error removing email" });
+  }
 }
 
 export const sendBulkEmails = async (req, res) => {
-    try {
-        const { subject, content } = req.body;
-        const emails = await Email.find({}).sort({ createdAt: -1 });
+  try {
+    const { subject, content, attachment } = req.body;
 
-        // Send an email to each email in the list
-        emails.forEach(({ email }) => {
-            const htmlBody = `<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bepro Email</title>
-  </head>
-  <body
-    style="
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      color: #333;
-    "
-  >
-    <table
-      width="100%"
-      border="0"
-      cellpadding="0"
-      cellspacing="0"
-      style="
-        margin: 20px auto;
-        max-width: 600px;
-        background-color: #ffffff;
-        border: 1px solid #dddddd;
-        border-radius: 4px;
-      "
-    >
-      <tr>
-        <td
-          style="
-            padding: 20px;
-            text-align: center;
-            background-color: #4caf50;
-            color: #ffffff;
-            font-size: 24px;
-            font-weight: bold;
-          "
-        >
-          Welcome to Our Service
-        </td>
-      </tr>
-      <tr>
-        <td style="padding: 20px">
-          <p style="margin: 0 0 16px 0; font-size: 16px; line-height: 1.5">
-            Dear ${email},
-          </p>
-          <p style="margin: 0 0 16px 0; font-size: 16px; line-height: 1.5">
-            ${subject}
-          </p>
-          <p style="margin: 0 0 16px 0; font-size: 16px; line-height: 1.5">
-            If you have any questions, feel free to
-            <a
-              href="yahyanashar22@gmail.com"
-              style="color: #4caf50; text-decoration: none"
-              >contact our support team</a
-            >.
-          </p>
-          <p style="margin: 0 0 16px 0; font-size: 16px; line-height: 1.5">
-            Best regards, <br />
-            The Team
-          </p>
-        </td>
-      </tr>
-      <tr>
-        <td
-          style="
-            padding: 20px;
-            text-align: center;
-            background-color: #f4f4f4;
-            font-size: 14px;
-            color: #777;
-          "
-        >
-          &copy; 2025 Bepro. All rights reserved.
-        </td>
-      </tr>
-    </table>
-  </body>
-</html>
-`;
-            //  `
-            // <!DOCTYPE html>
-            //     <html lang="en">
-            //         <head>
-            //             <meta charset="UTF-8">
-            //             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            //             <title>Email Template</title>
-            //         </head>
-            //         <body>
-            //             <p>${content}</p>
-            //         </body>
-            // </html>`;
+    const emails = await Email.find({}).sort({ createdAt: -1 });
 
-            sendEmail({
-                receiverEmail: email,
-                subject: subject,
-                htmlBody: htmlBody,
-            });
-        });
+    // Send an email to each email in the list
+    emails.forEach(({ email }) => {
+      const htmlBody = `
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <title>Bepro Email</title>
+        </head>
+        <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f4f4f4; color: #333;">
+          <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin: 20px auto; max-width: 600px; background-color: #ffffff; border: 1px solid #dddddd; border-radius: 4px;">
+            <tr>
+              <td style="padding: 20px; text-align: center; background-color: #7ac2bc; color: #ffffff; font-size: 24px; font-weight: bold;">Welcome to Our Service</td>
+            </tr>
+            <tr>
+              <td style="padding: 20px">
+                <p style="margin: 0 0 16px 0; font-size: 16px; line-height: 1.5">Dear ${email},</p>
+                <p style="margin: 0 0 16px 0; font-size: 16px; line-height: 1.5">${content}</p>
+                ${attachment
+          ? `<div style="text-align: center; margin: 20px 0;">
+                          <img src="cid:attachedImage" alt="Attached image" style="max-width: 100%; height: auto;" />
+                       </div>`
+          : ""
+        }
+                <p style="margin: 0 0 16px 0; font-size: 16px; line-height: 1.5">If you have any questions, feel free to <a href="mailto:yahyanashar22@gmail.com" style="color: #7ac2bc; text-decoration: none">contact our support team</a>.</p>
+                <p style="margin: 0 0 16px 0; font-size: 16px; line-height: 1.5">Best regards, <br /> The Team</p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding: 20px; text-align: center; background-color: #f4f4f4; font-size: 14px; color: #777;">&copy; 2025 Bepro. All rights reserved.</td>
+            </tr>
+          </table>
+        </body>
+      </html>`;
 
-        res.status(200).send("Emails are being sent.");
 
-    } catch (error) {
-        res.status(500).json({ message: "Error sending emails" });
-    }
+      sendEmail({
+        receiverEmail: email,
+        subject: subject,
+        htmlBody: htmlBody,
+        attachment: attachment,
+      });
+    });
+
+    res.status(200).send("Emails are being sent.");
+
+  } catch (error) {
+    res.status(500).json({ message: "Error sending emails" });
+  }
 }
