@@ -18,6 +18,7 @@
 /* Custom scrollbar for Webkit browsers (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -65,7 +66,7 @@ nav {
 .navLinks {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  row-gap: 20px;
   width: 300px;
 }
 
@@ -90,6 +91,11 @@ li {
   align-items: center;
   justify-content: center;
   height: 100dvh;
+}
+
+.navLink:first-child {
+  box-shadow: 10px 4px 10px 5px var(--shadow-color);
+  z-index: 100;
 }
 
 .navLink {
@@ -149,10 +155,10 @@ main {
   display: flex;
 }
 
-.title span {
-  width: 100px;
-  padding-right: 10px;
-  background-image: linear-gradient(to right, var(--platinum), var(--white));
+#normal {
+  width: 10px;
+  padding-right: 40px;
+  background-color: var(--white);
 }
 
 .loader {
@@ -225,7 +231,7 @@ main {
 .dialog-title {
   font-size: 1.5rem;
   margin-bottom: 15px;
-  color: #333;
+  color: var(--medium-grey);
 }
 
 .dialog-content {
@@ -243,7 +249,7 @@ main {
 .dialog-submit-btn {
   padding: 8px 16px;
   font-size: 1rem;
-  border-radius: 5px;
+  border-radius: 12px;
   cursor: pointer;
   border: none;
 }
@@ -319,7 +325,8 @@ input[name="attachment"] {
   margin-top: 0px;
 }
 
-input[name="attachment"]::file-selector-button {
+input[name="attachment"]::file-selector-button,
+input[name="file"]::file-selector-button {
   color: var(--tiffany-blue);
   background-color: var(--white);
   border: none;
@@ -355,7 +362,8 @@ input[name="attachment"]::file-selector-button {
 }
 
 /* Success/Error messages styling */
-p {
+.success-message,
+.error-message {
   margin-top: 15px;
   font-size: 14px;
   font-weight: 500;
@@ -475,5 +483,41 @@ p {
 @media (min-width: 800px) {
   .emails-container {
     width: 800px;
+  }
+}
+
+@media (max-width: 800px) {
+  .home-container {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  main {
+    padding: 10px 0px;
+  }
+
+  nav {
+    width: 100%;
+  }
+
+  .navLinks {
+    flex-direction: row;
+    overflow-x: auto;
+    width: 100%;
+    column-gap: 20px;
+  }
+  .navLink {
+    width: 100%;
+  }
+  .navLink p {
+    display: none;
+  }
+  .emails-container {
+    width: 100%;
+    grid-template-columns: repeat(1, 1fr);
+    margin: auto;
+  }
+  .emails-main {
+    width: 100%;
   }
 }

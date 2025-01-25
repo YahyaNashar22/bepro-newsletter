@@ -11,10 +11,10 @@ const AvailableEmails = ({
   fetchEmails: () => void;
 }) => {
   return (
-    <main>
+    <main className="emails-main">
       <h1 className="title">
         {" "}
-        <span></span>Available Emails
+        <span id="normal"></span>Available Emails
       </h1>
       <ul className="emails-container">
         {loading ? (

@@ -4,6 +4,8 @@ import plus from "../assets/plus.png";
 import trash from "../assets/trash.png";
 import email from "../assets/email.png";
 import signout from "../assets/signout.png";
+import signoutLarge from "../assets/signout_large.png";
+
 
 import Dialog from "./Dialog";
 import FileUpload from "./FileUpload";
@@ -126,11 +128,14 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
       )}
       {isSignoutDialogOpen && (
         <Dialog
-          title="Sign Out"
           content={
-            <p style={{ fontSize: "1.2rem" }}>
-              Are you sure you want to sign out?
-            </p>
+            <div style={{ display: "flex", flexDirection: "column", gap:10, alignContent: "center", alignItems: "center" }}>
+              <img src={signoutLarge} width={64} height={64} alt="signout" />
+              <h1 className="form-title">Sign Out</h1>
+              <p style={{ fontSize: "1.2rem" }}>
+                Are you sure you want to sign out?
+              </p>
+            </div>
           }
           submitText="sign out"
           onClose={handleCloseDialog} 

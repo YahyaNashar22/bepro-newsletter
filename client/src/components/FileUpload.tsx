@@ -81,7 +81,7 @@ function FileUpload({
       <img src={Excel} width={64} height={64} alt="Excel icon" />
       <h1 className="form-title">Upload Excel File</h1>
 
-      <input type="file" onChange={handleFileChange} className="file-input" />
+      <input type="file" name="file" onChange={handleFileChange} className="file-input" />
       <button type="submit" disabled={loading} className="upload-btn">
         {loading ? "Uploading..." : "Upload"}
       </button>
