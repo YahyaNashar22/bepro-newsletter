@@ -77,7 +77,7 @@ export const sendBulkEmails = async (req, res) => {
                        </div>`
           : ""
         }
-                <p style="margin: 0 0 16px 0; font-size: 16px; line-height: 1.5">If you have any questions, feel free to <a href="mailto:yahyanashar22@gmail.com" style="color: #7ac2bc; text-decoration: none">contact our support team</a>.</p>
+                <p style="margin: 0 0 16px 0; font-size: 16px; line-height: 1.5">If you have any questions, feel free to <a href="mailto:beprolb@gmail.com" style="color: #7ac2bc; text-decoration: none">contact our support team</a>.</p>
                 <p style="margin: 0 0 16px 0; font-size: 16px; line-height: 1.5">Best regards, <br /> The Team</p>
               </td>
             </tr>
