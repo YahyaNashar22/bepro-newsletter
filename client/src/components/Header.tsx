@@ -4,14 +4,15 @@ import plus from "../assets/plus.png";
 import trash from "../assets/trash.png";
 import email from "../assets/email.png";
 import signout from "../assets/signout.png";
+import history from "../assets/history.png";
 import signoutLarge from "../assets/signout_large.png";
-
 
 import Dialog from "./Dialog";
 import FileUpload from "./FileUpload";
 import AddEmailManually from "./AddEmailManually";
 import DeleteEmail from "./DeleteEmail";
 import SendBulkEmails from "./SendBulkEmails";
+import EmailHistory from "./EmailHistory";
 
 const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
   const [isExcelDialogOpen, setExcelDialogOpen] = useState<boolean>(false);
@@ -19,6 +20,7 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
     useState<boolean>(false);
   const [isDeleteDialogOpen, setDeleteDialogOpen] = useState<boolean>(false);
   const [isEmailDialogOpen, setEmailDialogOpen] = useState<boolean>(false);
+  const [isEmailHistoryOpen, setEmailHistoryOpen] = useState<boolean>(false);
   const [isSignoutDialogOpen, setSignoutDialogOpen] = useState<boolean>(false);
 
   const openExcelDialog = () => {
@@ -33,6 +35,9 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
   const openEmailDialog = () => {
     setEmailDialogOpen(true);
   };
+  const openEmailHistoryDialog = () => {
+    setEmailHistoryOpen(true);
+  };
   const openSignoutDialog = () => {
     setSignoutDialogOpen(true);
   };
@@ -42,6 +47,7 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
     setManualAddDialogOpen(false);
     setDeleteDialogOpen(false);
     setEmailDialogOpen(false);
+    setEmailHistoryOpen(false);
     setSignoutDialogOpen(false);
   };
 
@@ -69,6 +75,10 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
           <li className="navLink" onClick={openEmailDialog}>
             <img src={email} width={32} height={32} alt="nav icons" />
             <p>Create Mail</p>
+          </li>
+          <li className="navLink" onClick={openEmailHistoryDialog}>
+            <img src={history} width={32} height={32} alt="nav icons" />
+            <p>History</p>
           </li>
           <li className="navLink" onClick={openSignoutDialog}>
             <img src={signout} width={32} height={32} alt="nav icons" />
@@ -126,10 +136,27 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
           showTitle={false}
         />
       )}
+      {isEmailHistoryOpen && (
+        <Dialog
+          content={<EmailHistory />}
+          submitText="Send"
+          onClose={handleCloseDialog}
+          showSubmit={false}
+          showTitle={false}
+        />
+      )}
       {isSignoutDialogOpen && (
         <Dialog
           content={
-            <div style={{ display: "flex", flexDirection: "column", gap:10, alignContent: "center", alignItems: "center" }}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 10,
+                alignContent: "center",
+                alignItems: "center",
+              }}
+            >
               <img src={signoutLarge} width={64} height={64} alt="signout" />
               <h1 className="form-title">Sign Out</h1>
               <p style={{ fontSize: "1.2rem" }}>
@@ -138,7 +165,7 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
             </div>
           }
           submitText="sign out"
-          onClose={handleCloseDialog} 
+          onClose={handleCloseDialog}
           onSubmit={handleSignout}
           showTitle={false}
         />
