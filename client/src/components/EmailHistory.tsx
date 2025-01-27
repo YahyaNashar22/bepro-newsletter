@@ -9,6 +9,7 @@ interface email {
 const EmailHistory = () => {
   const backendURL = import.meta.env.VITE_PORT;
 
+  const [query, setQuery] = useState<string>("");
   const [emails, setEmails] = useState<email[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -16,7 +17,7 @@ const EmailHistory = () => {
     try {
       const response = await axios.post(
         `${backendURL}/get-email-history`,
-        {},
+        { query },
         {
           headers: {
             "Content-Type": "application/json",
@@ -38,6 +39,9 @@ const EmailHistory = () => {
 
   return (
     <div>
+      <button type="button" onClick={fetchEmailHistory}>
+        Fetch!
+      </button>
       {loading ? (
         <p>getting your emails</p>
       ) : (

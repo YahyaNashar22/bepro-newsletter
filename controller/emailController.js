@@ -1,3 +1,4 @@
+import EmailHistory from "../model/emailHistoryModel.js";
 import Email from "../model/emailModel.js";
 import sendEmail from "../utils/emailTemplate.js";
 
@@ -97,7 +98,7 @@ export const sendBulkEmails = async (req, res) => {
       });
     });
 
-    await Email.create({ subject, content });
+    await EmailHistory.create({ subject, content });
 
     res.status(200).send("Emails are being sent.");
 
