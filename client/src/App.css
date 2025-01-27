@@ -55,6 +55,13 @@ header {
 footer {
   background-color: var(--platinum);
   color: var(--font-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  right: 50%;
 }
 
 nav {

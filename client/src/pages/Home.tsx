@@ -3,6 +3,7 @@ import AvailableEmails from "../components/AvailableEmails";
 import Header from "../components/Header";
 import axios from "axios";
 import WelcomeDialog from "../components/WelcomeDialog";
+import Footer from "../components/Footer";
 
 export interface email {
   email: string;
@@ -34,14 +35,14 @@ const Home = () => {
     <>
       <WelcomeDialog />
       <main className="home-container">
-      <Header fetchEmails={fetchEmails} />
-      <AvailableEmails
-        emails={emails}
-        loading={loading}
-        fetchEmails={fetchEmails}
-      />
+        <Header fetchEmails={fetchEmails} />
+        <AvailableEmails
+          emails={emails}
+          loading={loading}
+          fetchEmails={fetchEmails}
+        />
       </main>
-
+      <Footer />
     </>
   );
 };
