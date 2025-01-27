@@ -66,7 +66,7 @@ export const sendBulkEmails = async (req, res) => {
         <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f4f4f4; color: #333;">
           <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin: 20px auto; max-width: 600px; background-color: #ffffff; border: 1px solid #dddddd; border-radius: 4px;">
             <tr>
-              <td style="padding: 20px; text-align: center; background-color: #7ac2bc; color: #ffffff; font-size: 24px; font-weight: bold;">Welcome to Our Service</td>
+              <td style="padding: 20px; text-align: center; background-color: #7ac2bc; color: #ffffff; font-size: 24px; font-weight: bold;">BE NEXT</td>
             </tr>
             <tr>
               <td style="padding: 20px">

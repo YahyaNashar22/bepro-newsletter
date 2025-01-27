@@ -480,6 +480,96 @@ input[name="file"]::file-selector-button {
   margin-bottom: 10px;
 }
 
+.search-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.search-input {
+  padding: 7px;
+  border: 1px solid var(--tiffany-blue);
+  border-radius: 12px;
+  width: 200px;
+  font-size: 1.1rem;
+  background-color: var(--white);
+  cursor: pointer;
+  color: var(--medium-grey);
+}
+
+.search-input:focus {
+  border-color: var(--lighter-tiffany);
+  outline: none;
+}
+
+.search-btn {
+  padding: 8px;
+  font-size: 16px;
+  background-color: var(--tiffany-blue);
+  color: var(--font-color);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 100px;
+  box-shadow: 5px 5px 10px var(--shadow-color);
+}
+
+.history-container {
+  max-height: 450px;
+  min-width: 360px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  margin: auto 20px;
+  padding: 20px;
+  list-style: none;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-container {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.close-btn {
+  margin-top: 20px;
+  background-color: #7ac2bc;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  background-color: #65a99e;
+}
+
 @media (min-width: 800px) {
   .emails-container {
     width: 800px;
