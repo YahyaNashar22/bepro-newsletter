@@ -97,6 +97,8 @@ export const sendBulkEmails = async (req, res) => {
       });
     });
 
+    await Email.create({ subject, content });
+
     res.status(200).send("Emails are being sent.");
 
   } catch (error) {
