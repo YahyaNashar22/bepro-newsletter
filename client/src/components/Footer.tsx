@@ -3,7 +3,7 @@ import bepro from "../assets/bepro_logo.png";
 const Footer = () => {
   return (
     <footer>
-      <img src={bepro} width={256} height={128} alt="bepro" />
+      <img src={bepro} width={200} height={90} alt="bepro" />
     </footer>
   );
 };
