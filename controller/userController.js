@@ -30,6 +30,9 @@ export const login = async (req, res) => {
         });
         if (!existingUser) return res.status(404).json({ message: "username or email does not exist" });
 
+        // check if user is blocked
+        if (existingUser.blocked) return res.status(401).json({ message: "Your Account is Blocked!" });
+
         // check if password match
         const isValidPassword = await bcrypt.compare(password, existingUser.password);
         if (!isValidPassword) return res.status(401).json({ message: "Wrong  Password" });
