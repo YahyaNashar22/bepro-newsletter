@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import AvailableEmails from "../components/AvailableEmails";
 import Header from "../components/Header";
 import axios from "axios";
-import WelcomeDialog from "../components/WelcomeDialog";
 import Footer from "../components/Footer";
 
 export interface email {
@@ -33,7 +32,6 @@ const Home = () => {
 
   return (
     <>
-      <WelcomeDialog />
       <main className="home-container">
         <Header fetchEmails={fetchEmails} />
         <AvailableEmails

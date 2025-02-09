@@ -5,6 +5,7 @@ import trash from "../assets/trash.png";
 import email from "../assets/email.png";
 import signout from "../assets/signout.png";
 import history from "../assets/history.png";
+import userIco from "../assets/user.png";
 import signoutLarge from "../assets/signout_large.png";
 
 import Dialog from "./Dialog";
@@ -13,14 +14,22 @@ import AddEmailManually from "./AddEmailManually";
 import DeleteEmail from "./DeleteEmail";
 import SendBulkEmails from "./SendBulkEmails";
 import EmailHistory from "./EmailHistory";
+import { jwtDecode } from "jwt-decode";
+import { User } from "../interfaces";
+import CreateUser from "./CreateUser";
 
 const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
+  const token = localStorage.getItem("token");
+  const user: User = jwtDecode(token!);
+
   const [isExcelDialogOpen, setExcelDialogOpen] = useState<boolean>(false);
   const [isManualAddDialogOpen, setManualAddDialogOpen] =
     useState<boolean>(false);
   const [isDeleteDialogOpen, setDeleteDialogOpen] = useState<boolean>(false);
   const [isEmailDialogOpen, setEmailDialogOpen] = useState<boolean>(false);
   const [isEmailHistoryOpen, setEmailHistoryOpen] = useState<boolean>(false);
+  const [isRegisterUserDialogOpen, setRegisterUserDialogOpen] =
+    useState<boolean>(false);
   const [isSignoutDialogOpen, setSignoutDialogOpen] = useState<boolean>(false);
 
   const openExcelDialog = () => {
@@ -38,6 +47,9 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
   const openEmailHistoryDialog = () => {
     setEmailHistoryOpen(true);
   };
+  const openRegisterUserDialog = () => {
+    setRegisterUserDialogOpen(true);
+  };
   const openSignoutDialog = () => {
     setSignoutDialogOpen(true);
   };
@@ -49,6 +61,7 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
     setEmailDialogOpen(false);
     setEmailHistoryOpen(false);
     setSignoutDialogOpen(false);
+    setRegisterUserDialogOpen(false);
   };
 
   const handleSignout = () => {
@@ -80,6 +93,12 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
             <img src={history} width={32} height={32} alt="nav icons" />
             <p>History</p>
           </li>
+          {user.role === "admin" && (
+            <li className="navLink" onClick={openRegisterUserDialog}>
+              <img src={userIco} width={32} height={32} alt="nav icons" />
+              <p>Register Client</p>
+            </li>
+          )}
           <li className="navLink" onClick={openSignoutDialog}>
             <img src={signout} width={32} height={32} alt="nav icons" />
             <p>Logout</p>
@@ -140,6 +159,14 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
         <Dialog
           content={<EmailHistory />}
           submitText="Send"
+          onClose={handleCloseDialog}
+          showSubmit={false}
+          showTitle={false}
+        />
+      )}
+      {isRegisterUserDialogOpen && (
+        <Dialog
+          content={<CreateUser />}
           onClose={handleCloseDialog}
           showSubmit={false}
           showTitle={false}

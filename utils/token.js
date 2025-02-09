@@ -3,9 +3,12 @@ import jwt from 'jsonwebtoken';
 export const createToken = (user) => {
     return jwt.sign(
         {
-            username: user.username
+            username: user.username,
+            email: user.email,
+            role: user.role
         },
-        process.env.SECRET_TOKEN
+        process.env.SECRET_TOKEN,
+        { expiresIn: "1h" }
     )
 }
 
