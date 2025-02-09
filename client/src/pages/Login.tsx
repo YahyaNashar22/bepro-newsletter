@@ -6,14 +6,14 @@ import person from "../assets/person.png";
 const Login = () => {
   const backendURL = import.meta.env.VITE_PORT;
 
-  const [username, setUsername] = useState<string>("");
+  const [identifier, setIdentifier] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    if (name === "username") setUsername(value);
+    if (name === "identifier") setIdentifier(value);
     if (name === "password") setPassword(value);
   };
 
@@ -23,7 +23,7 @@ const Login = () => {
     try {
       const res = await axios.post(
         `${backendURL}/login`,
-        { username, password },
+        { identifier, password },
         { headers: { "Content-Type": "application/json" } }
       );
 
@@ -52,10 +52,10 @@ const Login = () => {
         <label  className="login-label">
           <input
             type="text"
-            name="username"
-            value={username}
+            name="identifier"
+            value={identifier}
             onChange={handleChange}
-            placeholder="Username"
+            placeholder="Username or Email"
             className="login-input"
           />
         </label>

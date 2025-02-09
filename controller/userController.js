@@ -19,13 +19,13 @@ export const createUser = async (req, res) => {
 
 export const login = async (req, res) => {
     try {
-        const { username, password, email } = req.body;
+        const { identifier, password } = req.body;
 
         // check if email exists
         const existingUser = await User.findOne({
             $or: [
-                { username },
-                { email }
+                { username: identifier },
+                { email: identifier }
             ]
         });
         if (!existingUser) return res.status(404).json({ message: "username or email does not exist" });
@@ -42,5 +42,51 @@ export const login = async (req, res) => {
 
     } catch (error) {
         res.status(500).json({ message: "Something Went Wrong" });
+    }
+}
+
+
+export const getAllUsers = async (req, res) => {
+    try {
+        const { query } = req.body;
+
+        const users = await User.find({
+            $or: [
+                { username: { $regex: query, $options: "i" } },
+                { email: { $regex: query, $options: "i" } },
+                { phone: { $regex: query, $options: "i" } }
+            ]
+        })
+
+        res.status(200).json({
+            message: "users fetched",
+            payload: users
+        });
+
+    } catch (error) {
+        res.status(500).json({ message: "Something Went Wrong" });
+    }
+}
+
+export const blockUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const user = await User.findById(id);
+
+        await User.findOneAndUpdate({ _id: id }, {
+            $set: {
+                blocked: !user.blocked
+            }
+        }, { new: true });
+
+        res.status(200).json({
+            message: "user status changed",
+            payload: user
+        });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Something Went Wrong", error: error });
     }
 }

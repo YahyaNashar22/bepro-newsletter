@@ -26,6 +26,11 @@ const userSchema = new Schema({
         required: true,
         enum: ["user", "admin"],
         default: "user",
+    },
+    blocked: {
+        type: Boolean,
+        required: true,
+        default: true
     }
 }, {
     timestamps: true

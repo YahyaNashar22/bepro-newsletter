@@ -1,8 +1,11 @@
 import axios from "axios";
 import { ChangeEvent, FormEvent, useState } from "react";
 
+import user from "../assets/user_large.png";
+
 const CreateUser = () => {
   const backendURL = import.meta.env.VITE_PORT;
+
 
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -54,6 +57,9 @@ const CreateUser = () => {
       onSubmit={handleSubmit}
       className="file-upload-container"
     >
+      <img src={user} width={64} height={64} alt="user icon" />
+      <h1 className="form-title">Add Client</h1>
+
       <label className="login-label">
         username:
         <input

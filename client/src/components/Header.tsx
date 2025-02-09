@@ -7,6 +7,8 @@ import signout from "../assets/signout.png";
 import history from "../assets/history.png";
 import userIco from "../assets/user.png";
 import signoutLarge from "../assets/signout_large.png";
+import users from "../assets/users.png";
+
 
 import Dialog from "./Dialog";
 import FileUpload from "./FileUpload";
@@ -17,6 +19,7 @@ import EmailHistory from "./EmailHistory";
 import { jwtDecode } from "jwt-decode";
 import { User } from "../interfaces";
 import CreateUser from "./CreateUser";
+import ListClients from "./ListClients";
 
 const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
   const token = localStorage.getItem("token");
@@ -30,6 +33,7 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
   const [isEmailHistoryOpen, setEmailHistoryOpen] = useState<boolean>(false);
   const [isRegisterUserDialogOpen, setRegisterUserDialogOpen] =
     useState<boolean>(false);
+  const [isClientsDialogOpen, setClientsDialogOpen] = useState<boolean>(false);
   const [isSignoutDialogOpen, setSignoutDialogOpen] = useState<boolean>(false);
 
   const openExcelDialog = () => {
@@ -50,6 +54,9 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
   const openRegisterUserDialog = () => {
     setRegisterUserDialogOpen(true);
   };
+  const openClientsDialog = () => {
+    setClientsDialogOpen(true);
+  };
   const openSignoutDialog = () => {
     setSignoutDialogOpen(true);
   };
@@ -62,6 +69,7 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
     setEmailHistoryOpen(false);
     setSignoutDialogOpen(false);
     setRegisterUserDialogOpen(false);
+    setClientsDialogOpen(false);
   };
 
   const handleSignout = () => {
@@ -97,6 +105,12 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
             <li className="navLink" onClick={openRegisterUserDialog}>
               <img src={userIco} width={32} height={32} alt="nav icons" />
               <p>Register Client</p>
+            </li>
+          )}
+          {user.role === "admin" && (
+            <li className="navLink" onClick={openClientsDialog}>
+              <img src={users} width={32} height={32} alt="nav icons" />
+              <p>List Clients</p>
             </li>
           )}
           <li className="navLink" onClick={openSignoutDialog}>
@@ -167,6 +181,15 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
       {isRegisterUserDialogOpen && (
         <Dialog
           content={<CreateUser />}
+          onClose={handleCloseDialog}
+          showSubmit={false}
+          showTitle={false}
+        />
+      )}
+
+      {isClientsDialogOpen && (
+        <Dialog
+          content={<ListClients />}
           onClose={handleCloseDialog}
           showSubmit={false}
           showTitle={false}
