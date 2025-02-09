@@ -13,6 +13,7 @@ const Login = () => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    setError(null);
     if (name === "identifier") setIdentifier(value);
     if (name === "password") setPassword(value);
   };

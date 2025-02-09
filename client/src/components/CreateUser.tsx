@@ -8,7 +8,7 @@ const CreateUser = () => {
 
 
   const [username, setUsername] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [password, setPassword] = useState<string>("0000");
   const [email, setEmail] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
