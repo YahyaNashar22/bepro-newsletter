@@ -38,3 +38,7 @@ function App() {
 }
 
 export default App;
+
+
+// TODO: make email send api from logged in user email
+// TODO: add change password
