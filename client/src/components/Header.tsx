@@ -8,7 +8,7 @@ import history from "../assets/history.png";
 import userIco from "../assets/user.png";
 import signoutLarge from "../assets/signout_large.png";
 import users from "../assets/users.png";
-
+import password from "../assets/password.png";
 
 import Dialog from "./Dialog";
 import FileUpload from "./FileUpload";
@@ -20,6 +20,7 @@ import { jwtDecode } from "jwt-decode";
 import { User } from "../interfaces";
 import CreateUser from "./CreateUser";
 import ListClients from "./ListClients";
+import ChangePassword from "./ChangePassword";
 
 const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
   const token = localStorage.getItem("token");
@@ -34,6 +35,9 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
   const [isRegisterUserDialogOpen, setRegisterUserDialogOpen] =
     useState<boolean>(false);
   const [isClientsDialogOpen, setClientsDialogOpen] = useState<boolean>(false);
+  const [isChangePasswordDialogOpen, setChangePasswordDialogOpen] =
+    useState<boolean>(false);
+
   const [isSignoutDialogOpen, setSignoutDialogOpen] = useState<boolean>(false);
 
   const openExcelDialog = () => {
@@ -57,6 +61,9 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
   const openClientsDialog = () => {
     setClientsDialogOpen(true);
   };
+  const openChangePasswordDialog = () => {
+    setChangePasswordDialogOpen(true);
+  };
   const openSignoutDialog = () => {
     setSignoutDialogOpen(true);
   };
@@ -69,6 +76,7 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
     setEmailHistoryOpen(false);
     setSignoutDialogOpen(false);
     setRegisterUserDialogOpen(false);
+    setChangePasswordDialogOpen(false);
     setClientsDialogOpen(false);
   };
 
@@ -100,6 +108,10 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
           <li className="navLink" onClick={openEmailHistoryDialog}>
             <img src={history} width={32} height={32} alt="nav icons" />
             <p>History</p>
+          </li>
+          <li className="navLink" onClick={openChangePasswordDialog}>
+            <img src={password} width={32} height={32} alt="nav icons" />
+            <p>Password</p>
           </li>
           {user.role === "admin" && (
             <li className="navLink" onClick={openRegisterUserDialog}>
@@ -190,6 +202,14 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
       {isClientsDialogOpen && (
         <Dialog
           content={<ListClients />}
+          onClose={handleCloseDialog}
+          showSubmit={false}
+          showTitle={false}
+        />
+      )}
+      {isChangePasswordDialogOpen && (
+        <Dialog
+          content={<ChangePassword />}
           onClose={handleCloseDialog}
           showSubmit={false}
           showTitle={false}

@@ -57,7 +57,7 @@ const AvailableEmails = ({
           "Content-Type": "application/json",
         },
       });
-      
+
       setSelectedEmails([]);
       fetchEmails();
     } catch (error) {
@@ -84,16 +84,18 @@ const AvailableEmails = ({
         </button>
       )}
 
-      <button
-        className="dialog-submit-btn"
-        onClick={toggleSelectAll}
-        disabled={loading || isLoading}
-        style={{ marginLeft: "30px" }}
-      >
-        {selectedEmails.length !== emails.length
-          ? "Select All"
-          : "Deselect All"}
-      </button>
+      {emails.length !== 0 && (
+        <button
+          className="dialog-submit-btn"
+          onClick={toggleSelectAll}
+          disabled={loading || isLoading}
+          style={{ marginLeft: "30px" }}
+        >
+          {selectedEmails.length !== emails.length
+            ? "Select All"
+            : "Deselect All"}
+        </button>
+      )}
 
       <ul className="emails-container">
         {loading ? (

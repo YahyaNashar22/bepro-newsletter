@@ -93,3 +93,31 @@ export const blockUser = async (req, res) => {
         res.status(500).json({ message: "Something Went Wrong", error: error });
     }
 }
+
+export const editPassword = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { password } = req.body;
+
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        const user = await User.findById(id);
+
+        if (!user) return res.status(404).json({ message: "user not found!" });
+
+        await User.findOneAndUpdate({ _id: id }, {
+            $set: {
+                password: hashedPassword
+            }
+        }, { new: true });
+
+        res.status(200).json({
+            message: "user password changed",
+        });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Something Went Wrong", error: error });
+    }
+}
