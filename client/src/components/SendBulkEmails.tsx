@@ -2,6 +2,8 @@ import axios from "axios";
 import { ChangeEvent, FormEvent, useState } from "react";
 
 import Email from "../assets/email_large.png";
+import { User } from "../interfaces";
+import { jwtDecode } from "jwt-decode";
 
 const SendBulkEmails = ({
   handleCloseDialog,
@@ -9,6 +11,8 @@ const SendBulkEmails = ({
   handleCloseDialog: () => void;
 }) => {
   const backendURL = import.meta.env.VITE_PORT;
+  const token = localStorage.getItem("token");
+  const user: User = jwtDecode(token!);
 
   const [subject, setSubject] = useState<string>("");
   const [content, setContent] = useState<string>("");
@@ -75,7 +79,7 @@ const SendBulkEmails = ({
 
       await axios.post(
         `${backendURL}/send-bulk-emails`,
-        { subject, content, attachment },
+        { subject, content, attachment, userId: user._id },
         {
           headers: {
             "Content-Type": "application/json",

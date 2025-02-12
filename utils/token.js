@@ -5,7 +5,8 @@ export const createToken = (user) => {
         {
             username: user.username,
             email: user.email,
-            role: user.role
+            role: user.role,
+            _id: user._id
         },
         process.env.SECRET_TOKEN,
         { expiresIn: "1h" }

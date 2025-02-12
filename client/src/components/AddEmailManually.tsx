@@ -16,6 +16,8 @@ const AddEmailManually = ({
   const token = localStorage.getItem("token");
   const user: User = jwtDecode(token!);
 
+  console.log(user)
+
   const [email, setEmail] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);

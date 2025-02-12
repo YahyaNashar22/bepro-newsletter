@@ -71,6 +71,10 @@ export const sendBulkEmails = async (req, res) => {
 
     const emails = await Email.find({ userId }).sort({ createdAt: -1 });
 
+    if (emails.length == 0 || !emails) {
+      return res.status(404).json({ message: "Please add recipients first!" });
+    }
+
     // Send an email to each email in the list
     emails.forEach(({ email }) => {
       const htmlBody = `
