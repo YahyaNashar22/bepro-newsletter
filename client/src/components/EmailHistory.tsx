@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 import historyLarge from "../assets/history_large.png";
+import { User } from "../interfaces";
+import { jwtDecode } from "jwt-decode";
 
 interface email {
   _id: string;
@@ -11,6 +13,8 @@ interface email {
 
 const EmailHistory = () => {
   const backendURL = import.meta.env.VITE_PORT;
+  const token = localStorage.getItem("token");
+  const user: User = jwtDecode(token!);
 
   const [query, setQuery] = useState<string>("");
   const [emails, setEmails] = useState<email[]>([]);
@@ -23,7 +27,7 @@ const EmailHistory = () => {
     try {
       const response = await axios.post(
         `${backendURL}/get-email-history`,
-        { query },
+        { query, userId: user._id },
         {
           headers: {
             "Content-Type": "application/json",

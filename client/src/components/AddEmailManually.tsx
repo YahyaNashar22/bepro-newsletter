@@ -2,6 +2,8 @@ import axios from "axios";
 import { ChangeEvent, FormEvent, useState } from "react";
 
 import Plus from "../assets/plus_large.png";
+import { User } from "../interfaces";
+import { jwtDecode } from "jwt-decode";
 
 const AddEmailManually = ({
   handleCloseDialog,
@@ -11,6 +13,8 @@ const AddEmailManually = ({
   fetchEmails: () => void;
 }) => {
   const backendURL = import.meta.env.VITE_PORT;
+  const token = localStorage.getItem("token");
+  const user: User = jwtDecode(token!);
 
   const [email, setEmail] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
@@ -29,7 +33,7 @@ const AddEmailManually = ({
     try {
       const res = await axios.post(
         `${backendURL}/add-email`,
-        { email },
+        { email, userId: user._id },
         { headers: { "Content-Type": "application/json" } }
       );
 

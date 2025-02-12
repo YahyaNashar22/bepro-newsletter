@@ -116,7 +116,7 @@ export const sendBulkEmails = async (req, res) => {
       });
     });
 
-    await EmailHistory.create({ subject, content });
+    await EmailHistory.create({ subject, content, userId });
 
     res.status(200).send("Emails are being sent.");
 

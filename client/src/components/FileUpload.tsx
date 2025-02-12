@@ -2,6 +2,8 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import axios from "axios";
 
 import Excel from "../assets/excel.png";
+import { User } from "../interfaces";
+import { jwtDecode } from "jwt-decode";
 
 function FileUpload({
   handleCloseDialog,
@@ -11,6 +13,8 @@ function FileUpload({
   fetchEmails: () => void;
 }) {
   const backendURL = import.meta.env.VITE_PORT;
+    const token = localStorage.getItem("token");
+    const user: User = jwtDecode(token!);
 
   const [file, setFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -47,6 +51,7 @@ function FileUpload({
     }
     const formData = new FormData();
     formData.append("file", file);
+    formData.append("userId", user._id);
 
     try {
       setLoading(true);

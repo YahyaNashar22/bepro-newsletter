@@ -2,6 +2,8 @@ import axios from "axios";
 import { ChangeEvent, FormEvent, useState } from "react";
 
 import Trash from "../assets/trash_large.png";
+import { User } from "../interfaces";
+import { jwtDecode } from "jwt-decode";
 
 const DeleteEmail = ({
   handleCloseDialog,
@@ -11,6 +13,8 @@ const DeleteEmail = ({
   fetchEmails: () => void;
 }) => {
   const backendURL = import.meta.env.VITE_PORT;
+  const token = localStorage.getItem("token");
+  const user: User = jwtDecode(token!);
 
   const [email, setEmail] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
@@ -27,7 +31,15 @@ const DeleteEmail = ({
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.delete(`${backendURL}/delete-email/${email}`);
+      const res = await axios.delete(`${backendURL}/delete-email`, {
+        data: {
+          userId: user._id,
+          email,
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       if (res.status == 200) {
         setSuccess("Email removed successfully");
