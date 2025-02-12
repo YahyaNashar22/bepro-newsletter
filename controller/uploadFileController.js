@@ -7,6 +7,7 @@ export const uploadFile = async (req, res) => {
         const file = xlsx.readFile(req.file.path);
         const sheets = file.SheetNames;
         const data = xlsx.utils.sheet_to_json(file.Sheets[sheets[0]]);
+        const { userId } = req.body;
 
         // Find the key that contains emails
         const emailColumn = Object.keys(data[0]).find(key => key.toLowerCase().includes('email'));
@@ -35,7 +36,7 @@ export const uploadFile = async (req, res) => {
         }
 
         // Insert only new, non-duplicate emails
-        const result = await Email.insertMany(newEmails.map(email => ({ email })));
+        const result = await Email.insertMany(newEmails.map(email => ({ email, userId })));
 
         res.status(201).json({ message: "emails added successfully", payload: result });
     } catch (error) {

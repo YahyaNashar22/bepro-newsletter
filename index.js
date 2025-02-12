@@ -7,7 +7,7 @@ import { fileURLToPath } from 'url';
 import databaseConnection from './utils/databaseConnection.js';
 import { upload } from "./middlewares/multer.js";
 import { uploadFile } from './controller/uploadFileController.js';
-import { addEmailManually, getAllEmails, removeEmail, sendBulkEmails } from './controller/emailController.js';
+import { addEmailManually, deleteEmails, getAllEmails, removeEmail, sendBulkEmails } from './controller/emailController.js';
 import { blockUser, createUser, getAllUsers, login } from './controller/userController.js';
 import { getEmailHistory } from './controller/emailHistoryController.js';
 
@@ -36,8 +36,10 @@ app.use(express.static("uploads"));
 app.post('/upload', upload.single("file"), uploadFile);
 app.post('/add-email', addEmailManually);
 app.post('/send-bulk-emails', sendBulkEmails);
-app.get('/get-emails', getAllEmails);
-app.delete('/delete-email/:email', removeEmail);
+app.get('/get-emails/:userId', getAllEmails);
+app.delete('/delete-email', removeEmail);
+app.delete('/delete-selected-emails', deleteEmails);
+
 
 app.post('/get-email-history', getEmailHistory);
 app.post('/get-all-users', getAllUsers);

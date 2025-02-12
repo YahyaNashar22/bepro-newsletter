@@ -4,7 +4,8 @@ import sendEmail from "../utils/emailTemplate.js";
 
 export const getAllEmails = async (req, res) => {
   try {
-    const emails = await Email.find({}).sort({ createdAt: -1 });
+    const { userId } = req.params;
+    const emails = await Email.find({ userId }).sort({ createdAt: -1 });
     res.status(200).json({
       status: 'success',
       message: 'emails fetched',
@@ -17,13 +18,13 @@ export const getAllEmails = async (req, res) => {
 
 export const addEmailManually = async (req, res) => {
   try {
-    const { email } = req.body;
+    const { email, userId } = req.body;
 
     const prevEmail = await Email.findOne({ email });
 
     if (prevEmail) return res.status(400).json({ message: "Email already exists" });
 
-    const newEmail = new Email({ email });
+    const newEmail = new Email({ email, userId });
     await newEmail.save();
     res.status(201).send(newEmail);
   } catch (error) {
@@ -34,24 +35,41 @@ export const addEmailManually = async (req, res) => {
 
 export const removeEmail = async (req, res) => {
   try {
-    const email = req.params.email;
+    const { email, userId } = req.body;
 
-    const foundEmail = await Email.findOne({ email });
+    const foundEmail = await Email.findOne({ email, userId });
 
     if (!foundEmail) return res.status(404).json({ message: "Email does not exist" });
 
-    await Email.findOneAndDelete({ email });
+    await Email.findOneAndDelete({ email, userId });
     res.status(200).json({ message: "email removed successfully" });
   } catch (error) {
     res.status(500).json({ message: "Error removing email" });
   }
 }
 
+export const deleteEmails = async (req, res) => {
+  try {
+    const { emails, userId } = req.body;
+
+    if (!emails || !Array.isArray(emails)) {
+      return res.status(400).json({ message: "Invalid input, expected an array of emails" });
+    }
+
+    await Email.deleteMany({ email: { $in: emails }, userId }); // Proper filter syntax
+    res.status(200).json({ message: "Emails removed successfully" });
+
+  } catch (error) {
+    res.status(500).json({ message: "Error removing emails" });
+
+  }
+}
+
 export const sendBulkEmails = async (req, res) => {
   try {
-    const { subject, content, attachment } = req.body;
+    const { subject, content, attachment, userId } = req.body;
 
-    const emails = await Email.find({}).sort({ createdAt: -1 });
+    const emails = await Email.find({ userId }).sort({ createdAt: -1 });
 
     // Send an email to each email in the list
     emails.forEach(({ email }) => {

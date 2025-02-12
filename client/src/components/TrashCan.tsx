@@ -3,6 +3,8 @@ import axios from "axios";
 import trashCan from "../assets/trash.png";
 import Dialog from "./Dialog";
 import { useState } from "react";
+import { User } from "../interfaces";
+import { jwtDecode } from "jwt-decode";
 
 const TrashCan = ({
   fetchEmails,
@@ -12,6 +14,8 @@ const TrashCan = ({
   fetchEmails: () => void;
 }) => {
   const backendURL = import.meta.env.VITE_PORT;
+  const token = localStorage.getItem("token");
+  const user: User = jwtDecode(token!);
 
   const [isDialogOpen, setDialogOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -23,7 +27,15 @@ const TrashCan = ({
   const handleDelete = async () => {
     try {
       setLoading(true);
-      const res = await axios.delete(`${backendURL}/delete-email/${email}`);
+      const res = await axios.delete(`${backendURL}/delete-email`, {
+        data: {
+          email,
+          userId: user._id,
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
       if (res.status == 200) {
         fetchEmails();

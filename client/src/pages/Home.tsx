@@ -3,6 +3,8 @@ import AvailableEmails from "../components/AvailableEmails";
 import Header from "../components/Header";
 import axios from "axios";
 import Footer from "../components/Footer";
+import { User } from "../interfaces";
+import { jwtDecode } from "jwt-decode";
 
 export interface email {
   email: string;
@@ -11,13 +13,15 @@ export interface email {
 
 const Home = () => {
   const backendURL = import.meta.env.VITE_PORT;
+  const token = localStorage.getItem("token");
+  const user: User = jwtDecode(token!);
 
   const [emails, setEmails] = useState<[] | email[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   const fetchEmails = async () => {
     try {
-      const response = await axios.get(`${backendURL}/get-emails`);
+      const response = await axios.get(`${backendURL}/get-emails/${user._id}`);
       setEmails(response.data.payload);
     } catch (error) {
       console.error(error);
