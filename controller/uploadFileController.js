@@ -22,7 +22,7 @@ export const uploadFile = async (req, res) => {
         const validEmails = emails.filter(email => /\S+@\S+\.\S+/.test(email));
 
         // Check for existing emails in the database
-        const existingEmails = await Email.find({ email: { $in: validEmails } }).select('email');
+        const existingEmails = await Email.find({ email: { $in: validEmails }, userId }).select('email');
 
         // Create a set of existing emails for easy lookup
         const existingEmailsSet = new Set(existingEmails.map(e => e.email));

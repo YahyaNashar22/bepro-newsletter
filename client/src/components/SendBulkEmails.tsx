@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { ChangeEvent, FormEvent, useState } from "react";
 
 import Email from "../assets/email_large.png";
@@ -94,7 +94,15 @@ const SendBulkEmails = ({
         handleCloseDialog();
       }, 1000);
     } catch (error) {
-      console.error(error);
+      const axiosError = error as AxiosError<{ message: string }>; // Cast error to AxiosError
+
+      if (axiosError.response && axiosError.response.data) {
+        setError(axiosError.response.data.message);
+      } else {
+        setError("An unexpected error occurred");
+      }
+
+      console.error(axiosError);
     } finally {
       setLoading(false);
     }
