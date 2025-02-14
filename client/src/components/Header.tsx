@@ -21,6 +21,7 @@ import { User } from "../interfaces";
 import CreateUser from "./CreateUser";
 import ListClients from "./ListClients";
 import ChangePassword from "./ChangePassword";
+import EnterCode from "./EnterCode";
 
 const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
   const token = localStorage.getItem("token");
@@ -36,6 +37,8 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
     useState<boolean>(false);
   const [isClientsDialogOpen, setClientsDialogOpen] = useState<boolean>(false);
   const [isChangePasswordDialogOpen, setChangePasswordDialogOpen] =
+    useState<boolean>(false);
+  const [isEnterCodeDialogOpen, setEnterCodeDialogOpen] =
     useState<boolean>(false);
 
   const [isSignoutDialogOpen, setSignoutDialogOpen] = useState<boolean>(false);
@@ -64,6 +67,10 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
   const openChangePasswordDialog = () => {
     setChangePasswordDialogOpen(true);
   };
+  const openEnterCodeDialog = () => {
+    setEnterCodeDialogOpen(true);
+  };
+
   const openSignoutDialog = () => {
     setSignoutDialogOpen(true);
   };
@@ -78,6 +85,7 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
     setRegisterUserDialogOpen(false);
     setChangePasswordDialogOpen(false);
     setClientsDialogOpen(false);
+    setEnterCodeDialogOpen(false);
   };
 
   const handleSignout = () => {
@@ -113,6 +121,7 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
             <img src={password} width={32} height={32} alt="nav icons" />
             <p>Password</p>
           </li>
+
           {user.role === "admin" && (
             <li className="navLink" onClick={openRegisterUserDialog}>
               <img src={userIco} width={32} height={32} alt="nav icons" />
@@ -125,6 +134,14 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
               <p>List Clients</p>
             </li>
           )}
+
+          {user.role === "user" && (
+            <li className="navLink" onClick={openEnterCodeDialog}>
+              <img src={password} width={32} height={32} alt="nav icons" />
+              <p>Enter Code</p>
+            </li>
+          )}
+
           <li className="navLink" onClick={openSignoutDialog}>
             <img src={signout} width={32} height={32} alt="nav icons" />
             <p>Logout</p>
@@ -215,6 +232,16 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
           showTitle={false}
         />
       )}
+
+      {isEnterCodeDialogOpen && (
+        <Dialog
+          content={<EnterCode />}
+          onClose={handleCloseDialog}
+          showSubmit={false}
+          showTitle={false}
+        />
+      )}
+
       {isSignoutDialogOpen && (
         <Dialog
           content={
