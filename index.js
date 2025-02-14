@@ -8,7 +8,7 @@ import databaseConnection from './utils/databaseConnection.js';
 import { upload } from "./middlewares/multer.js";
 import { uploadFile } from './controller/uploadFileController.js';
 import { addEmailManually, deleteEmails, getAllEmails, removeEmail, sendBulkEmails } from './controller/emailController.js';
-import { blockUser, createUser, editPassword, getAllUsers, login } from './controller/userController.js';
+import { blockUser, createUser, editCode, editPassword, getAllUsers, login } from './controller/userController.js';
 import { getEmailHistory } from './controller/emailHistoryController.js';
 
 // Get __dirname equivalent in ES modules
@@ -46,6 +46,8 @@ app.post('/get-email-history', getEmailHistory);
 app.post('/get-all-users', getAllUsers);
 app.get('/block-user/:id', blockUser);
 app.patch('/edit-password/:id', editPassword);
+app.patch('/edit-code', editCode);
+
 
 
 app.post('/create-user', createUser);

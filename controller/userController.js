@@ -117,7 +117,31 @@ export const editPassword = async (req, res) => {
         });
 
     } catch (error) {
-        console.log(error);
+        res.status(500).json({ message: "Something Went Wrong", error: error });
+    }
+}
+
+
+export const editCode = async () => {
+    try {
+        const { id, code } = req.body;
+
+        const user = await User.findById(id);
+
+        if (!user) return res.status(404).json({ message: "user not found!" });
+
+        await User.findOneAndUpdate({ _id: id }, {
+            $set: {
+                code
+            }
+        }, { new: true });
+
+        res.status(200).json({
+            message: "user code changed",
+        });
+
+
+    } catch (error) {
         res.status(500).json({ message: "Something Went Wrong", error: error });
     }
 }

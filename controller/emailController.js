@@ -1,5 +1,6 @@
 import EmailHistory from "../model/emailHistoryModel.js";
 import Email from "../model/emailModel.js";
+import User from "../model/userModel.js";
 import sendEmail from "../utils/emailTemplate.js";
 
 export const getAllEmails = async (req, res) => {
@@ -69,6 +70,8 @@ export const sendBulkEmails = async (req, res) => {
   try {
     const { subject, content, attachment, userId } = req.body;
 
+    const user = await User.findById(userId);
+
     const emails = await Email.find({ userId }).sort({ createdAt: -1 });
 
     if (emails.length == 0 || !emails) {
@@ -113,6 +116,8 @@ export const sendBulkEmails = async (req, res) => {
 
 
       sendEmail({
+        senderEmail: user.email,
+        sendCode: user.code,
         receiverEmail: email,
         subject: subject,
         htmlBody: htmlBody,

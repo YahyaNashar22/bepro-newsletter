@@ -1,6 +1,5 @@
-import transporter from "./nodemailerTransporter.js";
 
-const sendEmail = ({ receiverEmail, subject, htmlBody, attachment }) => {
+const sendEmail = ({ senderEmail, senderCode, receiverEmail, subject, htmlBody, attachment }) => {
     if (attachment) {
 
         // Decode Base64 image into a buffer
@@ -15,10 +14,19 @@ const sendEmail = ({ receiverEmail, subject, htmlBody, attachment }) => {
             throw new Error("Unsupported file type. Only JPEG and PNG are allowed.");
         }
 
+        const transporter = nodemailer.createTransport({
+            host: "smtp.gmail.com",
+            port: 465,
+            secure: true,
+            auth: {
+                user: senderEmail,
+                pass: senderCode,
+            },
+        });
 
         transporter.sendMail(
             {
-                from: process.env.SENDER_EMAIL,
+                from: senderEmail,
                 to: receiverEmail, // Recipient's email address
                 subject: subject, // Subject line
                 html: htmlBody, // HTML body
@@ -42,7 +50,7 @@ const sendEmail = ({ receiverEmail, subject, htmlBody, attachment }) => {
     } else {
         transporter.sendMail(
             {
-                from: process.env.SENDER_EMAIL,
+                from: senderEmail,
                 to: receiverEmail, // Recipient's email address
                 subject: subject, // Subject line
                 html: htmlBody, // HTML body
