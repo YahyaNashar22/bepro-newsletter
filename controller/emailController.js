@@ -21,7 +21,7 @@ export const addEmailManually = async (req, res) => {
   try {
     const { email, userId } = req.body;
 
-    const prevEmail = await Email.findOne({ email });
+    const prevEmail = await Email.findOne({ email, userId });
 
     if (prevEmail) return res.status(400).json({ message: "Email already exists" });
 
@@ -70,7 +70,13 @@ export const sendBulkEmails = async (req, res) => {
   try {
     const { subject, content, attachment, userId, code } = req.body;
 
+
+
     const user = await User.findById(userId);
+
+    if (user.role !== "admin" && (!code || code == "")) {
+      return res.status(404).json({ message: "App Code is required!" });
+    }
 
     const emails = await Email.find({ userId }).sort({ createdAt: -1 });
 
@@ -115,9 +121,10 @@ export const sendBulkEmails = async (req, res) => {
       </html>`;
 
 
+
       sendEmail({
         senderEmail: user.email,
-        sendCode: user.role == "admin" ? process.env.SENDER_PASSWORD : code,
+        senderCode: user.role == "admin" ? process.env.SENDER_PASSWORD : code,
         receiverEmail: email,
         subject: subject,
         htmlBody: htmlBody,
@@ -131,5 +138,6 @@ export const sendBulkEmails = async (req, res) => {
 
   } catch (error) {
     res.status(500).json({ message: "Error sending emails" });
+    console.log(error);
   }
 }

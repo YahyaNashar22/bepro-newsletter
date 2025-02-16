@@ -75,6 +75,11 @@ const SendBulkEmails = ({
       e.preventDefault();
       setLoading(true);
 
+      if (code === "" && user.role !="admin") {
+        setError("Code Field is Required!");
+        return;
+      }
+
       if (subject === "") {
         setError("Subject Field is Required!");
         return;
@@ -128,12 +133,13 @@ const SendBulkEmails = ({
       {user.role != "admin" && (
         <label className="login-label">
           <input
-            type="text"
+            type="password"
             name="code"
             value={code}
             onChange={handleCodeChange}
             className="file-input"
             placeholder="App Code"
+            required
           />
         </label>
       )}
@@ -145,6 +151,7 @@ const SendBulkEmails = ({
           onChange={handleSubjectChange}
           className="file-input"
           placeholder="Subject"
+          required
         />
       </label>
       <label className="login-label">
@@ -154,6 +161,7 @@ const SendBulkEmails = ({
           onChange={handleContentChange}
           className="file-input email-content"
           placeholder="Content"
+          required
         />
       </label>
       <label className="login-label">
