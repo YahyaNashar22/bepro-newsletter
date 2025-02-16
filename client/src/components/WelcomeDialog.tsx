@@ -30,7 +30,7 @@ const WelcomeDialog = () => {
     <>
       {isDialogOpen && (
         <Dialog
-          title="Welcome Hadiyya!"
+          title="Instructions"
           content={<InstructionsDialog />}
           onSubmit={handleCloseDialog}
           submitText="Continue!"
@@ -44,37 +44,43 @@ const WelcomeDialog = () => {
 
 export default WelcomeDialog;
 
-const InstructionsDialog = () => {
+export const InstructionsDialog = () => {
   const [modalImage, setModalImage] = useState<string | null>(null);
   const steps = [
     {
       title: "Step 1",
-      description: "Follow this step to begin.",
+      description:
+        "Go to 'Manage Your Google Account' and from the left pane click on 'Security'",
       image: step1,
     },
     {
       title: "Step 2",
-      description: "This step helps you continue.",
+      description:
+        "Scroll Down to '2-Step Verification' and make sure it is activated ( mandatory )",
       image: step2,
     },
     {
       title: "Step 3",
-      description: "Ensure everything is set.",
+      description:
+        "After making sure '2-Step Verification' is activated, scroll down to 'App Passwords'",
       image: step3,
     },
     {
       title: "Step 4",
-      description: "Confirm and proceed further.",
+      description:
+        "Create a new 'App Password' and name it whatever you want ( maybe something like mailer-app )",
       image: step4,
     },
     {
       title: "Step 5",
-      description: "Almost done, review your details.",
+      description:
+        "Make sure to save the generated password somewhere safe, as it is a one time only generated password and can't be accessed later on",
       image: step5,
     },
     {
       title: "Step 6",
-      description: "You're all set! Enjoy your dashboard.",
+      description:
+        "Paste the app password that you copied each time you want to send an email. You can generate as much app passwords as you want and use them here",
       image: step6,
     },
   ];

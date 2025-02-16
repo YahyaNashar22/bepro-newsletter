@@ -9,8 +9,7 @@ import userIco from "../assets/user.png";
 import signoutLarge from "../assets/signout_large.png";
 import users from "../assets/users.png";
 import password from "../assets/password.png";
-// import code from "../assets/code.png";
-
+import help from "../assets/help.png";
 
 import Dialog from "./Dialog";
 import FileUpload from "./FileUpload";
@@ -23,7 +22,8 @@ import { User } from "../interfaces";
 import CreateUser from "./CreateUser";
 import ListClients from "./ListClients";
 import ChangePassword from "./ChangePassword";
-import EnterCode from "./EnterCode";
+// import EnterCode from "./EnterCode";
+import { InstructionsDialog } from "./WelcomeDialog";
 
 const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
   const token = localStorage.getItem("token");
@@ -40,8 +40,7 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
   const [isClientsDialogOpen, setClientsDialogOpen] = useState<boolean>(false);
   const [isChangePasswordDialogOpen, setChangePasswordDialogOpen] =
     useState<boolean>(false);
-  const [isEnterCodeDialogOpen, setEnterCodeDialogOpen] =
-    useState<boolean>(false);
+  const [isHelpDialogOpen, setHelpDialogOpen] = useState<boolean>(false);
 
   const [isSignoutDialogOpen, setSignoutDialogOpen] = useState<boolean>(false);
 
@@ -69,9 +68,9 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
   const openChangePasswordDialog = () => {
     setChangePasswordDialogOpen(true);
   };
-  // const openEnterCodeDialog = () => {
-  //   setEnterCodeDialogOpen(true);
-  // };
+  const openHelpDialog = () => {
+    setHelpDialogOpen(true);
+  };
 
   const openSignoutDialog = () => {
     setSignoutDialogOpen(true);
@@ -87,7 +86,7 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
     setRegisterUserDialogOpen(false);
     setChangePasswordDialogOpen(false);
     setClientsDialogOpen(false);
-    setEnterCodeDialogOpen(false);
+    setHelpDialogOpen(false);
   };
 
   const handleSignout = () => {
@@ -137,12 +136,12 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
             </li>
           )}
 
-          {/* {user.role === "user" && (
-            <li className="navLink" onClick={openEnterCodeDialog}>
-              <img src={code} width={32} height={32} alt="nav icons" />
-              <p>Enter Code</p>
+          {user.role === "user" && (
+            <li className="navLink" onClick={openHelpDialog}>
+              <img src={help} width={32} height={32} alt="nav icons" />
+              <p>Instructions</p>
             </li>
-          )} */}
+          )}
 
           <li className="navLink" onClick={openSignoutDialog}>
             <img src={signout} width={32} height={32} alt="nav icons" />
@@ -235,9 +234,9 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
         />
       )}
 
-      {isEnterCodeDialogOpen && (
+      {isHelpDialogOpen && (
         <Dialog
-          content={<EnterCode />}
+          content={<InstructionsDialog />}
           onClose={handleCloseDialog}
           showSubmit={false}
           showTitle={false}
