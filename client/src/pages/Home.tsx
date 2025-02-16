@@ -5,6 +5,7 @@ import axios from "axios";
 import Footer from "../components/Footer";
 import { User } from "../interfaces";
 import { jwtDecode } from "jwt-decode";
+import WelcomeDialog from "../components/WelcomeDialog";
 
 export interface email {
   email: string;
@@ -37,6 +38,7 @@ const Home = () => {
   return (
     <>
       <main className="home-container">
+        <WelcomeDialog />
         <Header fetchEmails={fetchEmails} />
         <AvailableEmails
           emails={emails}

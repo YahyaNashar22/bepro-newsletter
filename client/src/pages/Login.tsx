@@ -49,8 +49,14 @@ const Login = () => {
         onSubmit={handleSubmit}
         className="file-upload-container login-form"
       >
-        <img src={person} width={64} height={64}  alt="person" className="person" />
-        <label  className="login-label">
+        <img
+          src={person}
+          width={64}
+          height={64}
+          alt="person"
+          className="person"
+        />
+        <label className="login-label">
           <input
             type="text"
             name="identifier"
@@ -70,7 +76,7 @@ const Login = () => {
             placeholder="Password"
             className="login-input"
           />
-        </label >
+        </label>
         <button type="submit" disabled={loading} className="login-btn">
           {loading ? "Logging in..." : "Log in"}
         </button>
