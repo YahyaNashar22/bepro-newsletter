@@ -68,7 +68,7 @@ export const deleteEmails = async (req, res) => {
 
 export const sendBulkEmails = async (req, res) => {
   try {
-    const { subject, content, attachment, userId } = req.body;
+    const { subject, content, attachment, userId, code } = req.body;
 
     const user = await User.findById(userId);
 
@@ -103,7 +103,7 @@ export const sendBulkEmails = async (req, res) => {
                        </div>`
           : ""
         }
-                <p style="margin: 0 0 16px 0; font-size: 16px; line-height: 1.5">If you have any questions, feel free to <a href="mailto:beprolb@gmail.com" style="color: #7ac2bc; text-decoration: none">contact our support team</a>.</p>
+                <p style="margin: 0 0 16px 0; font-size: 16px; line-height: 1.5">If you have any questions, feel free to <a href="mailto:${user.email}" style="color: #7ac2bc; text-decoration: none">contact our support team</a>.</p>
                 <p style="margin: 0 0 16px 0; font-size: 16px; line-height: 1.5">Best regards, <br /> The Team</p>
               </td>
             </tr>
@@ -117,7 +117,7 @@ export const sendBulkEmails = async (req, res) => {
 
       sendEmail({
         senderEmail: user.email,
-        sendCode: user.code,
+        sendCode: user.role == "admin" ? process.env.SENDER_PASSWORD : code,
         receiverEmail: email,
         subject: subject,
         htmlBody: htmlBody,

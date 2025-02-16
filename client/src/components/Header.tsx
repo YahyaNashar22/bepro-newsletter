@@ -9,6 +9,8 @@ import userIco from "../assets/user.png";
 import signoutLarge from "../assets/signout_large.png";
 import users from "../assets/users.png";
 import password from "../assets/password.png";
+// import code from "../assets/code.png";
+
 
 import Dialog from "./Dialog";
 import FileUpload from "./FileUpload";
@@ -67,9 +69,9 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
   const openChangePasswordDialog = () => {
     setChangePasswordDialogOpen(true);
   };
-  const openEnterCodeDialog = () => {
-    setEnterCodeDialogOpen(true);
-  };
+  // const openEnterCodeDialog = () => {
+  //   setEnterCodeDialogOpen(true);
+  // };
 
   const openSignoutDialog = () => {
     setSignoutDialogOpen(true);
@@ -135,12 +137,12 @@ const Header = ({ fetchEmails }: { fetchEmails: () => void }) => {
             </li>
           )}
 
-          {user.role === "user" && (
+          {/* {user.role === "user" && (
             <li className="navLink" onClick={openEnterCodeDialog}>
-              <img src={password} width={32} height={32} alt="nav icons" />
+              <img src={code} width={32} height={32} alt="nav icons" />
               <p>Enter Code</p>
             </li>
-          )}
+          )} */}
 
           <li className="navLink" onClick={openSignoutDialog}>
             <img src={signout} width={32} height={32} alt="nav icons" />

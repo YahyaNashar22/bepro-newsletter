@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
-import password_large from "../assets/password_large.png";
+import code_large from "../assets/code_large.png";
 
 import { User } from "../interfaces";
 
@@ -51,7 +51,7 @@ const ChangePassword = () => {
       onSubmit={handleSubmit}
       className="file-upload-container"
     >
-      <img src={password_large} width={64} height={64} alt="user icon" />
+      <img src={code_large} width={64} height={64} alt="user icon" />
       <h1 className="form-title">New Code</h1>
 
       <label className="login-label">

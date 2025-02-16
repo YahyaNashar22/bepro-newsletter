@@ -328,11 +328,15 @@ main {
   color: var(--medium-grey);
 }
 
+input[name="code"] {
+  margin-bottom: 2px;
+}
+
 input[name="subject"] {
   margin-bottom: 2px;
 }
 
-input[name="content"] {
+input[name="content"] { 
   margin-top: 2px;
 }
 

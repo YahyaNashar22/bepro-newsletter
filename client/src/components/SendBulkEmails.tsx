@@ -16,6 +16,7 @@ const SendBulkEmails = ({
 
   const [subject, setSubject] = useState<string>("");
   const [content, setContent] = useState<string>("");
+  const [code, setCode] = useState<string>("");
   const [attachment, setAttachment] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -31,6 +32,12 @@ const SendBulkEmails = ({
     setError(null);
 
     setContent(e.target.value);
+  };
+
+  const handleCodeChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setError(null);
+
+    setCode(e.target.value);
   };
 
   const handleAttachmentChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -79,7 +86,7 @@ const SendBulkEmails = ({
 
       await axios.post(
         `${backendURL}/send-bulk-emails`,
-        { subject, content, attachment, userId: user._id },
+        { subject, content, attachment, userId: user._id, code },
         {
           headers: {
             "Content-Type": "application/json",
@@ -118,6 +125,18 @@ const SendBulkEmails = ({
         <h1 className="form-title">Create Mail</h1>
       </div>
 
+      {user.role != "admin" && (
+        <label className="login-label">
+          <input
+            type="text"
+            name="code"
+            value={code}
+            onChange={handleCodeChange}
+            className="file-input"
+            placeholder="App Code"
+          />
+        </label>
+      )}
       <label className="login-label">
         <input
           type="text"
