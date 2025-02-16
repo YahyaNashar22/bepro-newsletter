@@ -16,6 +16,7 @@ const ListClients = () => {
   const [query, setQuery] = useState<string>("");
   const [isDialogOpen, setDialogOpen] = useState<boolean>(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [isUserInfoOpen, setUserInfoOpen] = useState<boolean>(false);
 
   const fetchUsers = async () => {
     try {
@@ -69,6 +70,12 @@ const ListClients = () => {
       setLoading(false);
     }
   };
+
+  const handleUserClick = (user: User) => {
+    setSelectedUser(user);
+    setUserInfoOpen(true);
+  };
+
   return (
     <div className="file-upload-container">
       <img
@@ -99,7 +106,10 @@ const ListClients = () => {
               (user) =>
                 user.role !== "admin" && (
                   <li key={user._id} className="email">
-                    {user.email ?? user.username}
+                    <span onClick={() => handleUserClick(user)}>
+                      {" "}
+                      {user.email ?? user.username}
+                    </span>
                     <img
                       width={32}
                       height={32}
@@ -140,6 +150,34 @@ const ListClients = () => {
           submitText={loading ? "Loading..." : "Confirm"}
           onSubmit={handleBlock}
           onClose={handleClose}
+        />
+      )}
+
+      {/* User Info Modal */}
+      {isUserInfoOpen && selectedUser && (
+        <Dialog
+          title={`User Info: ${selectedUser.email ?? selectedUser.username}`}
+          content={
+            <div>
+              <p>
+                <strong>Email:</strong> {selectedUser.email}
+              </p>
+              <p>
+                <strong>Phone:</strong> {selectedUser.phone ?? "N/A"}
+              </p>
+              <p>
+                <strong>Role:</strong> {selectedUser.role}
+              </p>
+              <p>
+                <strong>Status:</strong>{" "}
+                {selectedUser.blocked ? "Blocked" : "Active"}
+              </p>
+            </div>
+          }
+          submitText="Close"
+          showSubmit={false}
+          onSubmit={() => setUserInfoOpen(false)}
+          onClose={() => setUserInfoOpen(false)}
         />
       )}
     </div>
