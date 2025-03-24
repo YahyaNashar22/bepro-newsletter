@@ -85,7 +85,54 @@ export const sendBulkEmails = async (req, res) => {
     }
 
     // Send an email to each email in the list
-    emails.forEach(({ email }) => {
+    // emails.forEach(({ email }) => {
+    //   const htmlBody = `
+    //   <!DOCTYPE html>
+    //   <html lang="en">
+    //     <head>
+    //       <meta charset="UTF-8" />
+    //       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    //       <title>Bepro Email</title>
+    //     </head>
+    //     <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f4f4f4; color: #333;">
+    //       <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin: 20px auto; max-width: 600px; background-color: #ffffff; border: 1px solid #dddddd; border-radius: 4px;">
+    //         <tr>
+    //           <td style="padding: 20px; text-align: center; background-color: #7ac2bc; color: #ffffff; font-size: 24px; font-weight: bold;">BE NEXT</td>
+    //         </tr>
+    //         <tr>
+    //           <td style="padding: 20px">
+    //             <p style="margin: 0 0 16px 0; font-size: 16px; line-height: 1.5">Dear ${email},</p>
+    //             <p style="margin: 0 0 16px 0; font-size: 16px; line-height: 1.5">${content}</p>
+    //             ${attachment
+    //       ? `<div style="text-align: center; margin: 20px 0;">
+    //                       <img src="cid:attachedImage" alt="Attached image" style="max-width: 100%; height: auto;" />
+    //                    </div>`
+    //       : ""
+    //     }
+    //             <p style="margin: 0 0 16px 0; font-size: 16px; line-height: 1.5">If you have any questions, feel free to <a href="mailto:${user.email}" style="color: #7ac2bc; text-decoration: none">contact our support team</a>.</p>
+    //             <p style="margin: 0 0 16px 0; font-size: 16px; line-height: 1.5">Best regards, <br /> The Team</p>
+    //           </td>
+    //         </tr>
+    //         <tr>
+    //           <td style="padding: 20px; text-align: center; background-color: #f4f4f4; font-size: 14px; color: #777;">&copy; 2025 Bepro. All rights reserved.</td>
+    //         </tr>
+    //       </table>
+    //     </body>
+    //   </html>`;
+
+
+
+    //   sendEmail({
+    //     senderEmail: user.email,
+    //     senderCode: user.role == "admin" ? process.env.SENDER_PASSWORD : code,
+    //     receiverEmail: email,
+    //     subject: subject,
+    //     htmlBody: htmlBody,
+    //     attachment: attachment,
+    //   });
+    // });
+
+    const emailPromises = emails.map(({ email }) => {
       const htmlBody = `
       <!DOCTYPE html>
       <html lang="en">
@@ -103,12 +150,9 @@ export const sendBulkEmails = async (req, res) => {
               <td style="padding: 20px">
                 <p style="margin: 0 0 16px 0; font-size: 16px; line-height: 1.5">Dear ${email},</p>
                 <p style="margin: 0 0 16px 0; font-size: 16px; line-height: 1.5">${content}</p>
-                ${attachment
-          ? `<div style="text-align: center; margin: 20px 0;">
-                          <img src="cid:attachedImage" alt="Attached image" style="max-width: 100%; height: auto;" />
-                       </div>`
-          : ""
-        }
+                ${attachment ? `<div style="text-align: center; margin: 20px 0;">
+                    <img src="cid:attachedImage" alt="Attached image" style="max-width: 100%; height: auto;" />
+                 </div>` : ""}
                 <p style="margin: 0 0 16px 0; font-size: 16px; line-height: 1.5">If you have any questions, feel free to <a href="mailto:${user.email}" style="color: #7ac2bc; text-decoration: none">contact our support team</a>.</p>
                 <p style="margin: 0 0 16px 0; font-size: 16px; line-height: 1.5">Best regards, <br /> The Team</p>
               </td>
@@ -120,9 +164,7 @@ export const sendBulkEmails = async (req, res) => {
         </body>
       </html>`;
 
-
-
-      sendEmail({
+      return sendEmail({
         senderEmail: user.email,
         senderCode: user.role == "admin" ? process.env.SENDER_PASSWORD : code,
         receiverEmail: email,
@@ -131,6 +173,9 @@ export const sendBulkEmails = async (req, res) => {
         attachment: attachment,
       });
     });
+
+    // Wait for all emails to be sent and handle failures
+    await Promise.all(emailPromises);
 
     await EmailHistory.create({ subject, content, userId });
 

@@ -145,3 +145,8 @@ export const editCode = async () => {
         res.status(500).json({ message: "Something Went Wrong", error: error });
     }
 }
+
+
+// TODO: SEND ERROR THAT SAYS DUPLICATE EMAIL OR DUPLICATE USERNAME
+// TODO: SEND ERROR THAT SAYS APP PASSWORD NOT CORRECT
+// TODO: ADD THE ABILITY TO CATEGORIZE EMAILS ( FROM EXCEL AS WELL )
