@@ -182,7 +182,12 @@ export const sendBulkEmails = async (req, res) => {
     res.status(200).send("Emails are being sent.");
 
   } catch (error) {
-    res.status(500).json({ message: "Error sending emails" });
-    console.log(error);
+    console.error("Error in sendBulkEmails:", error);
+
+    if (error.message.includes("Invalid email or password")) {
+      return res.status(401).json({ message: "Invalid email or password. Please check your credentials." });
+    }
+
+    res.status(500).json({ message: "Error sending emails", error: error.message });
   }
 }

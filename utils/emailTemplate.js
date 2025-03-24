@@ -46,6 +46,10 @@ const sendEmail = async ({ senderEmail, senderCode, receiverEmail, subject, html
                     , (error, info) => {
                         if (error) {
                             console.log("Error sending email with attachment:");
+
+                            if (error.code === "EAUTH") {
+                                return reject(new Error("Invalid email or password. Please check your credentials."));
+                            }
                             console.error(error);
                             return reject(error);
                         } else {
@@ -66,6 +70,9 @@ const sendEmail = async ({ senderEmail, senderCode, receiverEmail, subject, html
                     , (error, info) => {
                         if (error) {
                             console.log("Error sending email:");
+                            if (error.code === "EAUTH") {
+                                return reject(new Error("Invalid email or password. Please check your credentials."));
+                            }
                             console.error(error);
                             return reject(error);
                         } else {
