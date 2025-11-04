@@ -12,6 +12,13 @@ const sendEmail = async ({ senderEmail, senderCode, receiverEmail, subject, html
                     user: senderEmail,
                     pass: senderCode,
                 },
+                connectionTimeout: 10000, // 10 seconds
+                greetingTimeout: 5000,    // 5 seconds
+                socketTimeout: 10000,     // 10 seconds
+                debug: true,              // Enable debug logs
+                pool: true,              // Use pooled connections
+                maxConnections: 5,        // Maximum number of connections to make at once
+                maxMessages: 100,         // Maximum number of messages to send per connection
             });
 
             if (attachment) {
