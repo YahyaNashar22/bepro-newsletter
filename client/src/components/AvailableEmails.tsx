@@ -33,17 +33,17 @@ const AvailableEmails = ({
 
   // Toggle Select All emails
   const toggleSelectAll = () => {
-    if (selectedEmails.length === emails.length) {
+    if (selectedEmails?.length === emails?.length) {
       // If all emails are selected, deselect all
       setSelectedEmails([]);
     } else {
       // Otherwise, select all emails
-      setSelectedEmails(emails.map((email) => email.email));
+      setSelectedEmails(emails?.map((email) => email.email));
     }
   };
 
   // Function to check if email is selected
-  const isSelected = (email: string) => selectedEmails.includes(email);
+  const isSelected = (email: string) => selectedEmails?.includes(email);
 
   const deleteSelected = async () => {
     try {
@@ -72,7 +72,7 @@ const AvailableEmails = ({
         {" "}
         <span id="normal"></span>Available Emails
       </h1>
-      {selectedEmails.length != 0 && (
+      {selectedEmails?.length != 0 && (
         <button
           type="button"
           disabled={loading || isLoading}
@@ -84,14 +84,14 @@ const AvailableEmails = ({
         </button>
       )}
 
-      {emails.length !== 0 && (
+      {emails?.length !== 0 && (
         <button
           className="dialog-submit-btn"
           onClick={toggleSelectAll}
           disabled={loading || isLoading}
           style={{ marginLeft: "30px" }}
         >
-          {selectedEmails.length !== emails.length
+          {selectedEmails?.length !== emails?.length
             ? "Select All"
             : "Deselect All"}
         </button>
@@ -100,8 +100,8 @@ const AvailableEmails = ({
       <ul className="emails-container">
         {loading ? (
           <li className="loader">Getting your emails...</li>
-        ) : emails.length > 0 ? (
-          emails.map((email) => {
+        ) : emails?.length > 0 ? (
+          emails?.map((email) => {
             return (
               <li className="email" key={email._id}>
                 <input

@@ -70,9 +70,10 @@ export const sendBulkEmails = async (req, res) => {
   try {
     const { subject, content, attachment, userId, code } = req.body;
 
-
-
     const user = await User.findById(userId);
+
+    console.log(userId);
+    console.log(user);
 
     if (user.role !== "admin" && (!code || code == "")) {
       return res.status(404).json({ message: "App Code is required!" });
