@@ -51,15 +51,17 @@ export const login = async (req, res) => {
 
 export const getAllUsers = async (req, res) => {
     try {
-        const { query } = req.body;
-
-        const users = await User.find({
+        const { query = "" } = req.body;
+        
+        const searchQuery = query ? {
             $or: [
                 { username: { $regex: query, $options: "i" } },
                 { email: { $regex: query, $options: "i" } },
                 { phone: { $regex: query, $options: "i" } }
             ]
-        })
+        } : {};
+
+        const users = await User.find(searchQuery);
 
         res.status(200).json({
             message: "users fetched",
@@ -67,7 +69,7 @@ export const getAllUsers = async (req, res) => {
         });
 
     } catch (error) {
-        res.status(500).json({ message: "Something Went Wrong" });
+        res.status(500).json({ message: "Something Went Wrong", error: error });
     }
 }
 

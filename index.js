@@ -67,7 +67,7 @@ app.get('*', (req, res) => {
 // Connect to server
 app.listen(process.env.PORT, (error) => {
     if (!error) {
-        console.log(`Server Running On Port: ${process.env.PORT}`);
+        console.log(`Server Running On Port: ${process.env.PORT ?? 3000}`);
     } else {
         console.log("Couldn't Connect To Server!")
         console.error(`Error: ${error}`);
