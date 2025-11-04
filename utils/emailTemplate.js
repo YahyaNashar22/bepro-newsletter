@@ -12,9 +12,9 @@ const sendEmail = async ({ senderEmail, senderCode, receiverEmail, subject, html
                     user: senderEmail,
                     pass: senderCode,
                 },
-                connectionTimeout: 10000, // 10 seconds
-                greetingTimeout: 5000,    // 5 seconds
-                socketTimeout: 10000,     // 10 seconds
+                connectionTimeout: 20000, // 20 seconds
+                greetingTimeout: 15000,    // 15 seconds
+                socketTimeout: 20000,     // 20 seconds
                 debug: true,              // Enable debug logs
                 pool: true,              // Use pooled connections
                 maxConnections: 5,        // Maximum number of connections to make at once
